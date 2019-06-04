@@ -1,10 +1,10 @@
 import LCD_1in44
 import LCD_Config
 
-import Image
-import ImageDraw
-import ImageFont
-import ImageColor
+from PIL import Image
+from PIL import ImageDraw
+from PIL import ImageFont
+from PIL import ImageColor
 
 #try:
 def main():
