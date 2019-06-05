@@ -33,9 +33,6 @@ def main():
     LCD.LCD_ShowImage(image,0,0)
     LCD_Config.Driver_Delay_ms(500)
     
-    image = Image.open('open.jpeg')
-    LCD.LCD_ShowImage(image,0,0)
-    
     #while (True):
     
 if __name__ == '__main__':
