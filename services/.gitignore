@@ -1,0 +1,16 @@
+liberty-demo-admin/target/
+liberty-demo-webapp/target/
+liberty-demo-leaderboard/target/
+liberty-demo-game/target/
+*/.settings/
+*/.project
+*/.classpath
+*/.factorypath
+*/MANIFEST.MF
+README.html
+.DS_Store
+
+!liberty-demo-admin/target/*.war
+!liberty-demo-webapp/target/*.war
+!liberty-demo-leaderboard/target/*.war
+!liberty-demo-game/target/*.war

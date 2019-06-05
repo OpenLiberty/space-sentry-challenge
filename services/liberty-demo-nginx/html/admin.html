@@ -1,0 +1,146 @@
+<!DOCTYPE html >
+<html lang="en" >
+  <head>
+    <meta charset="UTF-8">
+    <title>OpenLiberty Space Sentry Challenge</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/admin.css">
+    <link rel="stylesheet" type="text/css" href="css/slider.css">
+    <script src="js/jquery.min.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery-plus-ui.min.js"></script>
+    <script src="js/jquery-ui-slider-pips.js"></script>
+    <link href='css/fonts/montserrat.css' rel='stylesheet' type='text/css'>
+    <link href='css/jqueryui.min.css' rel='stylesheet' type='text/css'>
+    <link href='css/jquery-ui-slider-pips.css' rel='stylesheet' type='text/css'>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <div id="header" class="imgwrapper fixed-top"><img src="images/logo.png" class="img-responsive" alt="OpenLibertyGameLogo"></div>
+      </div>
+	  <div class="row">
+	  <div class="futurepanel">
+	    <div class="futurepanel__header">
+	      <h1 class="futurepanel__title">Targets Config</h1>
+	    </div>
+	    <div class="futurepanel__body">
+	  		<div>
+	  		  <h4 class="heading">Targets Array</h4>
+	  		  <button class="futurebutton" id="target_button" disabled>Connect</button>
+	  		  <div> Status: <span id="target_status">Connecting...</span> </div>
+		      <div> IP: <span id="target_ip">Unknown</span> </div>
+		      <div class="futurepanel__divider"></div>
+	  		</div>
+	  		<div>
+		      <div class="futuregrid">
+		        <div class="futuregrid__row">
+		          <h4 class="futuregrid__cell">T1</h4>
+		          <button class="futurebutton" id="target_button1">Toggle</button>
+		        </div>
+		        <div class="futuregrid__row">
+		          <h4 class="futuregrid__cell">T2</h4>
+		          <button class="futurebutton" id="target_button2">Toggle</button>
+		        </div>
+		        <div class="futuregrid__row">
+		          <h4 class="futuregrid__cell">T3</h4>
+		          <button class="futurebutton" id="target_button3">Toggle</button>
+		        </div>
+		        <div class="futuregrid__row">
+		          <h4 class="futuregrid__cell">T4</h4>
+		          <button class="futurebutton" id="target_button4">Toggle</button>
+		        </div>
+		        <div class="futuregrid__row">
+		          <h4 class="futuregrid__cell">T5</h4>
+		          <button class="futurebutton" id="target_button5">Toggle</button>
+		        </div>		        			        			        			      
+		      </div>
+		      <div class="futurepanel__divider"></div>
+	  		</div>
+	  		<div>
+	  			<div class="futuregrid">
+	  				<div class="futuregrid__row">
+	  					<h4 class="futuregrid__cell">All up</h4>
+	  					<button class="futurebutton" id="allup_button">run</button>
+	  				</div>
+	  				<div class="futuregrid__row">
+	  					<h4 class="futuregrid__cell">All down</h4>
+	  					<button class="futurebutton" id="alldown_button">run</button>
+	  				</div>		  
+	  				<div class="futuregrid__row">
+	  					<h4 class="futuregrid__cell">Cycle</h4>
+	  					<button class="futurebutton" id="cycle_button">run</button>
+	  				</div>			  								
+	  			</div>
+	  			<div class="futurepanel__divider"></div>
+	  		</div>
+	  		<div>
+	  			<div class="futuregrid">
+	  				<div class="futuregrid__row">
+	  					<h4 class="futuregrid__cell">Laser value</h4>
+	  					<div class="futureinput futureinput--text">
+    						<input type="number" name="litinput" id="litinput" placeholder="240">
+  						</div>
+	  					<button id="litupdate_button" class="futurebutton">update</button>
+	  				</div>
+	  				<div class="futurepanel__divider"></div>
+	  				<div class="futuregrid__row">
+	  					<h4 class="futuregrid__cell">Piezo value</h4>
+	  					<div class="futureinput futureinput--text">
+    						<input type="number" name="hitinput" id="hitinput" placeholder="150">
+  						</div>
+	  					<button id="hitupdate_button" class="futurebutton">update</button>
+	  				</div>		  	  								
+	  			</div>
+	  			<div class="futurepanel__divider"></div>
+	  		</div>
+	    </div>
+	  </div> 
+	  <div class="futurepanel">
+	    <div class="futurepanel__header">
+	      <h1 class="futurepanel__title">Spaceship Config</h1>
+	    </div>
+	    <div class="futurepanel__body">
+	    	<div>
+	  		  <h4 class="heading">Spaceship</h4>
+	  		  <button class="futurebutton" id="ship_button" disabled>Connect</button>
+	  		  <div> Status: <span id="ship_status">Connecting...</span> </div>
+		      <div> IP: <span id="ship_ip">Unknown</span> </div>
+		      <div class="futurepanel__divider"></div>
+	  		</div>	
+		      <div class="futuregrid">
+		        <div class="futuregrid__row">
+		          <h4 class="futuregrid__cell">Sweep Pan</h4>
+		          <button class="futurebutton" id="ship_sweep_pan_btn">RUN</button>
+		        </div>
+		        <div class="futuregrid__row">
+		          <h4 class="futuregrid__cell">Sweep Tilt</h4>
+		          <button class="futurebutton" id="ship_sweep_tilt_btn">RUN</button>
+		        </div>
+		        <div class="futuregrid__row">
+		          <h4 class="futuregrid__cell">Laser on</h4>
+		          <button class="futurebutton" id="ship_firebutton">TOGGLE</button>
+		        </div>
+		        <div class="futuregrid__row">
+		          <h4 class="futuregrid__cell">Laser Off</h4>
+		          <button class="futurebutton" id="ship_firebutton_off">Toggle</button>
+		        </div>
+		        <div class="futuregrid__row">
+		          <h4 class="futuregrid__cell">Reset</h4>
+		          <button class="futurebutton" id="ship_reset">RUN</button>
+		        </div>		        			        			        			      
+		      </div>		
+	    </div>
+	  </div>	  
+   </div>
+   <div class="row">
+   	<div class="col-md-11 col-centered text-center">
+      	<button class="btn btn-primary" id="menuButton">Return to Menu</button>
+    </div>
+   </div>
+   </div>
+   <script src="js/admin.js"></script>
+  </body>
+</html>

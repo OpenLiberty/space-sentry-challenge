@@ -1,0 +1,21 @@
+<server description="Liberty Demo LeaderBoard">
+
+  <featureManager>
+      <feature>jaxrs-2.1</feature>
+      <feature>jsonb-1.0</feature>
+      <feature>jsonp-1.1</feature>
+      <feature>cdi-2.0</feature>
+      <feature>websocket-1.1</feature>
+      <feature>localConnector-1.0</feature>
+      <feature>mpConfig-1.3</feature>
+      <feature>mpRestClient-1.1</feature>
+  </featureManager>
+  <cors domain="/liberty-demo-game/gameapp/game"
+    allowedOrigins="*"
+    allowedMethods="GET, POST"
+    allowCredentials="true"
+    exposeHeaders="MyHeader"/>
+  <httpEndpoint httpPort="${default.http.port}" httpsPort="${default.https.port}"
+      id="defaultHttpEndpoint" host="*" />
+  <webApplication location="liberty-demo-game.war" contextRoot="${app.context.root}"/>
+</server>
