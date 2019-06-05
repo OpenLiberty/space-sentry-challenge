@@ -5,9 +5,19 @@ from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
 from PIL import ImageColor
+import pygame
+import os
 
 #try:
 def main():
+    
+    #os.system("cvlc speech.wav")
+    pygame.mixer.init()
+    pygame.mixer.music.load("malewelcome4.wav")
+    pygame.mixer.music.play()
+    #while pygame.mixer.music.get_busy() == True:
+    #    continue
+
     LCD = LCD_1in44.LCD()
     
     print ("**********Init LCD**********")
@@ -19,7 +29,7 @@ def main():
     
     image = Image.open('open.jpeg')
     LCD.LCD_ShowImage(image,0,0)
-    LCD_Config.Driver_Delay_ms(600)
+    LCD_Config.Driver_Delay_ms(900)
     
     print ("***draw text")
     font = ImageFont.truetype("ASMAN.TTF", 85)
