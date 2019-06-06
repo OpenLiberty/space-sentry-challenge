@@ -10,13 +10,6 @@ import os
 
 #try:
 def main():
-    
-    #os.system("cvlc speech.wav")
-    pygame.mixer.init()
-    pygame.mixer.music.load("malewelcome4.wav")
-    pygame.mixer.music.play()
-    #while pygame.mixer.music.get_busy() == True:
-    #    continue
 
     LCD = LCD_1in44.LCD()
     
@@ -29,6 +22,12 @@ def main():
     
     image = Image.open('open.jpeg')
     LCD.LCD_ShowImage(image,0,0)
+    #os.system("cvlc speech.wav")
+    pygame.mixer.init()
+    pygame.mixer.music.load("full.wav")
+    pygame.mixer.music.play()
+    #while pygame.mixer.music.get_busy() == True:
+    #    continue
     LCD_Config.Driver_Delay_ms(900)
     
     print ("***draw text")
