@@ -5,9 +5,14 @@ from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
 from PIL import ImageColor
+import pygame
 import time
 
 def shoot(LCD):
+    pygame.mixer.init()
+    pygame.mixer.music.load("laser.wav")
+    pygame.mixer.music.play()
+    time.sleep(1)
     image = Image.new("RGB", (LCD.width, LCD.height), "BLACK")
     draw = ImageDraw.Draw(image)
     #font = ImageFont.truetype('/usr/share/fonts/truetype/freefont/FreeMonoBold.ttf', 16)
