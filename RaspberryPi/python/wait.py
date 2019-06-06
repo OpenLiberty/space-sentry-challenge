@@ -9,21 +9,38 @@ from PIL import ImageColor
 
 '''
 def gif():
-    # create the canvas, size in pixels
     canvas = Canvas(width = 300, height = 200, bg = 'yellow')
-    # pack the canvas into a frame/form
     canvas.pack(expand = YES, fill = BOTH)
-    # load the .gif image file
-    # put in your own gif file here, may need to add full path
-    # like 'C:/WINDOWS/Help/Tours/WindowsMediaPlayer/Img/mplogo.gif'
     gif1 = PhotoImage(file = 'DrBunsen.gif')
-    # put gif image on canvas
-    # pic's upper left corner (NW) on the canvas is at x=50 y=10
     canvas.create_image(50, 10, image = gif1, anchor = NW)
-    # run it ...
     mainloop()
 return
 '''
+font = ImageFont.truetype("ASMAN.TTF", 15)
+
+def ifRunning(draw,contaner,location):
+    if contaner==1:
+        draw.text((77, location), 'Running', fill = "GREEN", font=font)
+    else:
+        draw.text((77, location), 'Stop', fill = "Red", font=font)
+    return
+
+def status(LCD,A,G,L,N,M):
+    print ("***show container status")
+    image = Image.new("RGB", (LCD.width, LCD.height), "BLACK")
+    draw = ImageDraw.Draw(image)
+    draw.text((2, 12), 'Admin:', fill = "WHITE", font=font)
+    ifRunning(draw,A,12)
+    draw.text((2, 37), 'Game:', fill = "WHITE", font=font)
+    ifRunning(draw,G,37)
+    draw.text((2, 62), 'Leaderboard:', fill = "WHITE", font=font)
+    ifRunning(draw,L,62)
+    draw.text((2, 87), 'nginx:', fill = "WHITE", font=font)
+    ifRunning(draw,N,87)
+    draw.text((2, 112), 'mango:', fill = "WHITE", font=font)
+    ifRunning(draw,M,112)
+    LCD.LCD_ShowImage(image,0,0)
+    return
 
 #try:
 def main():
@@ -33,13 +50,7 @@ def main():
     Lcd_ScanDir = LCD_1in44.SCAN_DIR_DFT  #SCAN_DIR_DFT = D2U_L2R
     LCD.LCD_Init(Lcd_ScanDir)
     
-    image = Image.new("RGB", (LCD.width, LCD.height), "WHITE")
-
-    LCD.LCD_ShowImage(image,0,0)
-    #LCD_Config.Driver_Delay_ms(500)
-    
-    image = Image.open('sky.bmp')
-    LCD.LCD_ShowImage(image,0,0)
+    status(LCD,1,1,1,0,1)
     
     #while (True):
     
