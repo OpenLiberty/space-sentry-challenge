@@ -5,6 +5,7 @@ from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
 from PIL import ImageColor
+from gpiozero import Button
 #from Tkinter import *
 
 '''
@@ -17,6 +18,8 @@ def gif():
 return
 '''
 font = ImageFont.truetype("ASMAN.TTF", 15)
+buttonDown = Button("BCM19")
+buttonUp = Button("BCM6")
 
 def ifRunning(draw,contaner,location):
     if contaner==1:
@@ -78,11 +81,19 @@ def main():
     Lcd_ScanDir = LCD_1in44.SCAN_DIR_DFT  #SCAN_DIR_DFT = D2U_L2R
     LCD.LCD_Init(Lcd_ScanDir)
     
-    status(LCD,1,2,1,0,1)
-    LCD_Config.Driver_Delay_ms(10000)
-    statusDot(LCD,1,2,1,0,1)
+    while True:
+        status(LCD,1,2,1,0,1)
+        #LCD_Config.Driver_Delay_ms(10000)
+        while True:
+            if buttonDown.is_pressed:
+                break
     
-    #while (True):
+        statusDot(LCD,1,2,1,0,1)
+        while True:
+            if buttonUp.is_pressed:
+                break
+    
+        #while (True):
     
 if __name__ == '__main__':
     main()
