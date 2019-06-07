@@ -50,24 +50,42 @@ def hit(LCD):
     print ("***draw shooting screen")
     x = 64
     y = 64
-    while x>=0 and y<=128:
+    while x>=16 and y<=112:
         draw.rectangle([(x,x),(y,y)],fill = "GREEN")
         x -= 16
         y += 16
         #time.sleep(0.0000001)
         LCD.LCD_ShowImage(image,0,0)
-        #'''
+    while x>=0 and y<=128:
+        draw.rectangle([(x,x),(y,y)],fill = "BLUE")
+        x -= 16
+        y += 16
+        #time.sleep(0.0000001)
+        LCD.LCD_ShowImage(image,0,0)
+        #'''     
     x = 64
     y = 64
+    while x>=16 and y<=112:
+        draw.rectangle([(x,x),(y,y)],fill = "Yellow")
+        x -= 16
+        y += 16
+        #time.sleep(0.0000001)
+        LCD.LCD_ShowImage(image,0,0)
     while x>=0 and y<=128:
+        draw.rectangle([(x,x),(y,y)],fill = "Purple")
+        x -= 16
+        y += 16
+        #time.sleep(0.0000001)
+        LCD.LCD_ShowImage(image,0,0)
+        
+    x = 64
+    y = 64
+    while x>=16 and y<=112:
         draw.rectangle([(x,x),(y,y)],fill = "WHITE")
         x -= 16
         y += 16
         #time.sleep(0.0000001)
         LCD.LCD_ShowImage(image,0,0)
-     
-    x = 64
-    y = 64
     while x>=0 and y<=128:
         draw.rectangle([(x,x),(y,y)],fill = "RED")
         x -= 16
