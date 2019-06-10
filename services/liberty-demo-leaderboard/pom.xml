@@ -93,6 +93,18 @@
           <scope>provided</scope>
         </dependency>
         <!-- end::config[] -->
+        <dependency>
+          <groupId>org.eclipse.microprofile.health</groupId>
+          <artifactId>microprofile-health-api</artifactId>
+          <version>1.0</version>
+          <scope>provided</scope>
+        </dependency>
+        <dependency>
+          <groupId>javax.ws.rs</groupId>
+          <artifactId>javax.ws.rs-api</artifactId>
+          <version>2.1</version>
+          <scope>provided</scope>
+        </dependency>
         <!-- tag::dependencies_test[] -->
         <dependency>
             <groupId>commons-httpclient</groupId>
@@ -106,6 +118,22 @@
         	<version>18.0.0.2</version>
         	<type>esa</type>
         </dependency>
+        <dependency>
+        <groupId>io.openliberty.features</groupId>
+        <artifactId>mpConfig-1.1</artifactId>
+        <version>18.0.0.2</version>
+        <type>esa</type>
+        <scope>provided</scope>
+        </dependency>
+        <!-- tag::health[] -->
+        <dependency>
+            <groupId>io.openliberty.features</groupId>
+            <artifactId>mpHealth-1.0</artifactId>
+            <version>18.0.0.2</version>
+            <type>esa</type>
+            <scope>provided</scope>
+        </dependency>
+        <!-- end::health[] -->
     </dependencies>
 
 	<build>
