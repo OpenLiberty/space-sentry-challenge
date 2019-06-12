@@ -13,6 +13,8 @@ import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoIterable;
+import com.mongodb.MongoSocketException;
+import com.mongodb.MongoTimeoutException;
 
 import openliberty.sentry.demo.leaderboard.models.GameStat;
 import openliberty.sentry.demo.leaderboard.models.MongoGameStat;
@@ -25,33 +27,44 @@ public class MongoDBConnector {
 	private MongoDatabase database;
 	private MongoClient mongoClient;
 	private MongoCollection<Document> statsCollection;
+	public static boolean isConnected = false;
 	
 	public MongoDBConnector() {
-		mongoClient = new MongoClient("mongo", 27017);
+			mongoClient = new MongoClient("mongo", 27017);
 	}
 	
 	public void connectDB(boolean testDB) {
-		if (database == null) {
-			if (testDB)
-				database = mongoClient.getDatabase(TESTDBNAME);
-			else
-				database = mongoClient.getDatabase(DBNAME);
-			
-			if (!!!isCollectionExist(COLLECTION)) {
-				database.createCollection(COLLECTION);
+			if (database == null) {
+				if (testDB) {
+					database = mongoClient.getDatabase(TESTDBNAME);
+				}else {
+					database = mongoClient.getDatabase(DBNAME);
+				}if (!!!isCollectionExist(COLLECTION)) {
+					database.createCollection(COLLECTION);
+				}
+				statsCollection = database.getCollection(COLLECTION);				
 			}
-			statsCollection = database.getCollection(COLLECTION);				
-		}
+	}
+	
+	public static boolean getIsConnected() {
+		return isConnected;
 	}
 	
 	private boolean isCollectionExist(final String cname) {
-	    MongoIterable<String> collectionNames = database.listCollectionNames();
-	    for (final String name : collectionNames) {
-	        if (name.equalsIgnoreCase(cname)) {
-	            return true;
-	        }
-	    }
-	    return false;
+		try {
+		    MongoIterable<String> collectionNames = database.listCollectionNames();
+		    for (final String name : collectionNames) {
+		        if (name.equalsIgnoreCase(cname)) {
+		        	isConnected = true;
+		            return true;
+		        }
+		    }
+		    isConnected = true;
+		    return false;
+		}catch(Exception e) {
+			isConnected = false;
+			return false;
+		}
 	}
 	
 	

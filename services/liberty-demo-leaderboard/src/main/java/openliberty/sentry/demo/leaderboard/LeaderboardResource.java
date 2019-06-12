@@ -20,11 +20,11 @@ import openliberty.sentry.demo.leaderboard.mongodb.MongoDBConnector;
 
 @RequestScoped
 @Path("/leaderboard")
-public class LeaderboardResource {
-	
+public class LeaderboardResource {	
 	@Inject
 	MongoDBConnector dbConnector;
 	
+	public static boolean IS_CONNECTED;
 	
     @GET
     @Path("top_scores")
@@ -32,6 +32,7 @@ public class LeaderboardResource {
     public Response listLeaderBoard() {
         // tag::method-contents[]
     	dbConnector.connectDB(false);
+    	IS_CONNECTED = dbConnector.getIsConnected();
     	List<GameStat> topFive = dbConnector.getTopFive();
     	return Response.ok(topFive, MediaType.APPLICATION_JSON).build();
     }
