@@ -1,0 +1,1 @@
+{"checks":[{"data":{"services":"available"},"name":"InventoryResource","state":"UP"},{"data":{"default server":"available"},"name":"SystemResource","state":"down"}],"outcome":"UP"}
