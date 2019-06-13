@@ -32,15 +32,18 @@ def main():
     Lcd_ScanDir = LCD_1in44.SCAN_DIR_DFT  #SCAN_DIR_DFT = D2U_L2R
     LCD.LCD_Init(Lcd_ScanDir)
     
-    #url = urlopen('')
+    #url = urlopen('http://localhost:9080/health')
     #data = json.loads(url.read().decode('utf-8'))
     
-    with open('sample.json') as f:
-        data = json.load(f)
-    pprint(data)
+    #with open('sample.json') as f:
+    #    data = json.load(f)
+    #pprint(data)
     i=0
     location = 12
     while True:
+        #try, exeception
+        url = urlopen('http://localhost:9080/health')
+        data = json.loads(url.read().decode('utf-8'))
         image = Image.new("RGB", (LCD.width, LCD.height), "BLACK")
         draw = ImageDraw.Draw(image)
         while i<len(data.get('checks')):
