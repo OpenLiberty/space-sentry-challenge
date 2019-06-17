@@ -11,23 +11,23 @@ from pprint import pprint
 from gpiozero import Button
 #from Tkinter import *
 
-font = ImageFont.truetype("ASMAN.TTF", 15)
-font2 = ImageFont.truetype("ASMAN.TTF", 23)
+font = ImageFont.truetype("Open.ttf", 11)
+font2 = ImageFont.truetype("Open.ttf", 22)
 buttonDown = Button("BCM19")
 buttonUp = Button("BCM6")
 
 def ifRunningDot(draw,state,location):
     if state=="UP":
-        draw.ellipse((96,location-1,112,location+15),fill = "Green",outline = "Green")
+        draw.ellipse((104,location-1,120,location+15),fill = "Green",outline = "Green")
     elif state=="LOAD":
-        draw.ellipse((98,location+1,110,location+13),fill = "Orange",outline = "Orange")
+        draw.ellipse((106,location+1,118,location+13),fill = "Orange",outline = "Orange")
     else:
-        draw.ellipse((100,location+3,108,location+11),fill = "Red",outline = "Red")
+        draw.ellipse((108,location+3,116,location+11),fill = "Red",outline = "Red")
     return
 
 def noUrl(draw):
-    draw.text((20, 30), "No service", fill = "WHITE", font=font2)
-    draw.text((20, 70), "Avaliable", fill = "WHITE", font=font2)
+    draw.text((10, 30), "No service", fill = "WHITE", font=font2)
+    draw.text((15, 70), "Avaliable", fill = "WHITE", font=font2)
     
 #try:
 def main():
