@@ -12,6 +12,7 @@ from gpiozero import Button
 #from Tkinter import *
 
 font = ImageFont.truetype("ASMAN.TTF", 15)
+font2 = ImageFont.truetype("ASMAN.TTF", 23)
 buttonDown = Button("BCM19")
 buttonUp = Button("BCM6")
 
@@ -24,6 +25,10 @@ def ifRunningDot(draw,state,location):
         draw.ellipse((100,location+3,108,location+11),fill = "Red",outline = "Red")
     return
 
+def noUrl(draw):
+    draw.text((20, 30), "No service", fill = "WHITE", font=font2)
+    draw.text((20, 70), "Avaliable", fill = "WHITE", font=font2)
+    
 #try:
 def main():
     LCD = LCD_1in44.LCD()
@@ -41,23 +46,29 @@ def main():
     i=0
     location = 12
     while True:
-        #try, exeception
-        url = urlopen('http://localhost:9080/health')
-        data = json.loads(url.read().decode('utf-8'))
-        image = Image.new("RGB", (LCD.width, LCD.height), "BLACK")
-        draw = ImageDraw.Draw(image)
-        while i<len(data.get('checks')):
-            draw.text((4, location), data.get('checks')[i].get('name'), fill = "WHITE", font=font)
-            ifRunningDot(draw,data.get('checks')[i].get('state'),location)
-            i += 1
-            location += 25
-            if location>128:
-                break
-        LCD.LCD_ShowImage(image,0,0)
-        LCD_Config.Driver_Delay_ms(1000)
-        if location<128:
-            i=0
-        location = 12
+        try:
+            url = urlopen('http://localhost:9080/health')
+            data = json.loads(url.read().decode('utf-8'))
+            image = Image.new("RGB", (LCD.width, LCD.height), "BLACK")
+            draw = ImageDraw.Draw(image)
+            while i<len(data.get('checks')):
+                draw.text((4, location), data.get('checks')[i].get('name'), fill = "WHITE", font=font)
+                ifRunningDot(draw,data.get('checks')[i].get('state'),location)
+                i += 1
+                location += 25
+                if location>128:
+                    break
+            LCD.LCD_ShowImage(image,0,0)
+            LCD_Config.Driver_Delay_ms(1000)
+            if location<128:
+                i=0
+            location = 12
+        except:
+            image = Image.new("RGB", (LCD.width, LCD.height), "BLACK")
+            draw = ImageDraw.Draw(image)
+            noUrl(draw)
+            LCD.LCD_ShowImage(image,0,0)
+            LCD_Config.Driver_Delay_ms(1000)
         
         #LCD_Config.Driver_Delay_ms(10000)
         '''
