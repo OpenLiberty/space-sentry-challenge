@@ -1,0 +1,2 @@
+To move SG90 servo motor
+servoPos	This moves the servo	3	SLIDER	rx	0	1.0	0.0
