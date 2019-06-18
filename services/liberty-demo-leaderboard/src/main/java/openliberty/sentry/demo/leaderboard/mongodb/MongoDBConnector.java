@@ -63,6 +63,7 @@ public class MongoDBConnector {
 		    return false;
 		}catch(Exception e) {
 			isConnected = false;
+			database = null;
 			return false;
 		}
 	}
@@ -87,6 +88,9 @@ public class MongoDBConnector {
 	}
 	
 	public List<GameStat> getTopFive(){
+		List<GameStat> topFive = new ArrayList<>();
+		
+		try {
 		AggregateIterable<Document> output = this.statsCollection.aggregate(Arrays.asList(
 		        //new Document("$group", new Document("_id","$_id").append("score", new Document("$max","$score"))),
 		        new Document("$project",new Document("_id","$_id").append("playerId", "$playerId").append("score", 1)),
@@ -94,7 +98,7 @@ public class MongoDBConnector {
 		        new Document("$limit", 5)
 				));
 		
-		List<GameStat> topFive = new ArrayList<>();
+		
 		for (Document dbObject : output)
 		{
 		    System.out.println(dbObject);
@@ -105,5 +109,9 @@ public class MongoDBConnector {
 		}
    	 	return topFive;
 
+	}catch(Exception e) {
+		isConnected = false;
+		return topFive;
 	}
+}
 }

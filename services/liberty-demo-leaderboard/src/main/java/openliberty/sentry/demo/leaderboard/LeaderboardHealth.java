@@ -24,7 +24,6 @@ public class LeaderboardHealth implements HealthCheck {
 		      URI uri = new URI("http", null, "localhost", Integer.parseInt(System.getProperty("default.http.port")), "/liberty-demo-leaderboard/app/leaderboard/top_scores", null, null);
 		      
 		      url = uri.toString();
-		      System.out.println(url);
 		      }catch (Exception e) {
 		      System.out.println("URISyntaxException");
 		      }
