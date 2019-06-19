@@ -115,7 +115,7 @@
         <dependency>
         	<groupId>io.openliberty.features</groupId>
         	<artifactId>jsonb-1.0</artifactId>
-        	<version>19.0.0.5</version>
+        	<version>RELEASE</version>
         	<type>esa</type>
         </dependency>
     </dependencies>
