@@ -21,7 +21,7 @@ public class LeaderboardHealth implements HealthCheck {
 			String url = null;
 			
 		      try {
-		      URI uri = new URI("http", null, "localhost", Integer.parseInt(System.getProperty("default.http.port")), "/liberty-demo-leaderboard/app/leaderboard/top_scores", null, null);
+		      URI uri = new URI("http", null, "localhost", Integer.parseInt(System.getProperty("default.http.port")), "/", null, null);
 		      
 		      url = uri.toString();
 		      }catch (Exception e) {
