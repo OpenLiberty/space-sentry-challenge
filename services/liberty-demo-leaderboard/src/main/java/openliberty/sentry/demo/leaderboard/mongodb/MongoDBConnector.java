@@ -13,6 +13,8 @@ import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoIterable;
+import com.mongodb.MongoSocketException;
+import com.mongodb.MongoTimeoutException;
 
 import openliberty.sentry.demo.leaderboard.models.GameStat;
 import openliberty.sentry.demo.leaderboard.models.MongoGameStat;
@@ -25,33 +27,45 @@ public class MongoDBConnector {
 	private MongoDatabase database;
 	private MongoClient mongoClient;
 	private MongoCollection<Document> statsCollection;
+	public static boolean isConnected = false;
 	
 	public MongoDBConnector() {
-		mongoClient = new MongoClient("mongo", 27017);
+			mongoClient = new MongoClient("mongo", 27017);
 	}
 	
 	public void connectDB(boolean testDB) {
-		if (database == null) {
-			if (testDB)
-				database = mongoClient.getDatabase(TESTDBNAME);
-			else
-				database = mongoClient.getDatabase(DBNAME);
-			
-			if (!!!isCollectionExist(COLLECTION)) {
-				database.createCollection(COLLECTION);
+			if (database == null) {
+				if (testDB) {
+					database = mongoClient.getDatabase(TESTDBNAME);
+				}else {
+					database = mongoClient.getDatabase(DBNAME);
+				}if (!!!isCollectionExist(COLLECTION)) {
+					database.createCollection(COLLECTION);
+				}
+				statsCollection = database.getCollection(COLLECTION);				
 			}
-			statsCollection = database.getCollection(COLLECTION);				
-		}
+	}
+	
+	public static boolean getIsConnected() {
+		return isConnected;
 	}
 	
 	private boolean isCollectionExist(final String cname) {
-	    MongoIterable<String> collectionNames = database.listCollectionNames();
-	    for (final String name : collectionNames) {
-	        if (name.equalsIgnoreCase(cname)) {
-	            return true;
-	        }
-	    }
-	    return false;
+		try {
+		    MongoIterable<String> collectionNames = database.listCollectionNames();
+		    for (final String name : collectionNames) {
+		        if (name.equalsIgnoreCase(cname)) {
+		        	isConnected = true;
+		            return true;
+		        }
+		    }
+		    isConnected = true;
+		    return false;
+		}catch(Exception e) {
+			isConnected = false;
+			database = null;
+			return false;
+		}
 	}
 	
 	
@@ -74,6 +88,9 @@ public class MongoDBConnector {
 	}
 	
 	public List<GameStat> getTopFive(){
+		List<GameStat> topFive = new ArrayList<>();
+		
+		try {
 		AggregateIterable<Document> output = this.statsCollection.aggregate(Arrays.asList(
 		        //new Document("$group", new Document("_id","$_id").append("score", new Document("$max","$score"))),
 		        new Document("$project",new Document("_id","$_id").append("playerId", "$playerId").append("score", 1)),
@@ -81,7 +98,7 @@ public class MongoDBConnector {
 		        new Document("$limit", 5)
 				));
 		
-		List<GameStat> topFive = new ArrayList<>();
+		
 		for (Document dbObject : output)
 		{
 		    System.out.println(dbObject);
@@ -92,5 +109,9 @@ public class MongoDBConnector {
 		}
    	 	return topFive;
 
+	}catch(Exception e) {
+		isConnected = false;
+		return topFive;
 	}
+}
 }
