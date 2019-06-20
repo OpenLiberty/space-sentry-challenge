@@ -13,6 +13,9 @@ from prometheus_client.parser import text_string_to_metric_families
 import requests
 from requests.auth import HTTPBasicAuth
 import os
+#import numpy as np 
+from matplotlib import pyplot as plt
+#from numpy import empty
 #from Tkinter import *
 
 font = ImageFont.truetype("Open.ttf", 11)
@@ -47,26 +50,47 @@ def main():
     #with open('sample.json') as f:
     #    data = json.load(f)
     #pprint(data)
-    #while True:
-        #try:
+    array = [0,0,0,0,0,0,0,0,0,0]
+    while True:
+        try:
         #metrics = urlopen('http://localhost:9080/metrics')
-    os.system("./metrics.sh")
-    with open('metrics.json') as f:
-        plotdata = json.load(f)
-    pprint(plotdata)
-    print(plotdata.get('base').get('memory.usedHeap'))
+            i = 0
+            while i<9:
+                array[i]=array[i+1]
+                i += 1
+            os.system("./metrics.sh")
+            with open('metrics.json') as f:
+                plotdata = json.load(f)
+            pprint(plotdata)
+            memoryuse=plotdata.get('base').get('memory.usedHeap')
+            print(memoryuse)
+            array[9]= memoryuse
         #plotdata = metrics.read()
         #print(type(plotdata))
-    image = Image.new("RGB", (LCD.width, LCD.height), "BLACK")
-    draw = ImageDraw.Draw(image)
-
-        #except:
-        #    image = Image.new("RGB", (LCD.width, LCD.height), "BLACK")
-        #    draw = ImageDraw.Draw(image)
-        #    noUrl(draw)
-        #    LCD.LCD_ShowImage(image,0,0)
-        #    LCD_Config.Driver_Delay_ms(1000)
-            
+            LCD_Config.Driver_Delay_ms(1000)
+            plt.figure()
+            plt.title("Memory Used Heap", fontsize=20)
+            plt.ylim([0,50000000])
+            #y = [0,1,2,3,4,5]
+            #plt.yticks(y)
+            #yticks = np.arange(0,5,0.5)
+            #plt.yticks(range(0,5,1))
+            plt.plot(array, linewidth = 5)
+            #plt.show()
+            plt.savefig("memoryuse.png")
+            image = Image.new("RGB", (LCD.width, LCD.height), "BLACK")
+            draw = ImageDraw.Draw(image)
+            image = Image.open('memoryuse.png')
+            resized_image = image.resize((128,128), Image.ANTIALIAS)
+            resized_image.save('resized.png')
+            LCD.LCD_ShowImage(resized_image,0,0)
+        except:
+            image = Image.new("RGB", (LCD.width, LCD.height), "BLACK")
+            draw = ImageDraw.Draw(image)
+            noUrl(draw)
+            LCD.LCD_ShowImage(image,0,0)
+            LCD_Config.Driver_Delay_ms(5000)
+          
         #LCD_Config.Driver_Delay_ms(10000)
     
 if __name__ == '__main__':
@@ -75,5 +99,3 @@ if __name__ == '__main__':
 #except:
 #   print("except")
 #   GPIO.cleanup()
-
-
