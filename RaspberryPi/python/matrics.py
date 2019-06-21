@@ -52,7 +52,7 @@ def main():
     #pprint(data)
     array = [0,0,0,0,0,0,0,0,0,0]
     while True:
-        try:
+        #try:
         #metrics = urlopen('http://localhost:9080/metrics')
             i = 0
             while i<9:
@@ -65,17 +65,19 @@ def main():
             memoryuse=plotdata.get('base').get('memory.usedHeap')
             print(memoryuse)
             array[9]= memoryuse
+            maxCommited = plotdata.get('base').get('memory.committedHeap')
+            print(maxCommited)
         #plotdata = metrics.read()
         #print(type(plotdata))
             LCD_Config.Driver_Delay_ms(1000)
             plt.figure()
             plt.title("Memory Used Heap", fontsize=20)
-            plt.ylim([0,50000000])
+            plt.ylim([0,maxCommited])
             #y = [0,1,2,3,4,5]
             #plt.yticks(y)
             #yticks = np.arange(0,5,0.5)
             #plt.yticks(range(0,5,1))
-            plt.plot(array, linewidth = 5)
+            plt.plot(array, linewidth = 6)
             #plt.show()
             plt.savefig("memoryuse.png")
             image = Image.new("RGB", (LCD.width, LCD.height), "BLACK")
@@ -84,12 +86,12 @@ def main():
             resized_image = image.resize((128,128), Image.ANTIALIAS)
             resized_image.save('resized.png')
             LCD.LCD_ShowImage(resized_image,0,0)
-        except:
-            image = Image.new("RGB", (LCD.width, LCD.height), "BLACK")
-            draw = ImageDraw.Draw(image)
-            noUrl(draw)
-            LCD.LCD_ShowImage(image,0,0)
-            LCD_Config.Driver_Delay_ms(5000)
+        #except:
+        #    image = Image.new("RGB", (LCD.width, LCD.height), "BLACK")
+        #    draw = ImageDraw.Draw(image)
+        #    noUrl(draw)
+        #    LCD.LCD_ShowImage(image,0,0)
+        #    LCD_Config.Driver_Delay_ms(1000)
           
         #LCD_Config.Driver_Delay_ms(10000)
     
