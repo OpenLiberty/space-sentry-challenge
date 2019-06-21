@@ -70,8 +70,11 @@ def main():
         #plotdata = metrics.read()
         #print(type(plotdata))
             LCD_Config.Driver_Delay_ms(1000)
-            plt.figure()
-            plt.title("Memory Used Heap", fontsize=20)
+            plt.rc_context({'axes.edgecolor':'white', 'xtick.color':'white', 'ytick.color':'white', 'figure.facecolor':'black'})
+            plt.rcParams['axes.facecolor']='black'
+            plt.rcParams['savefig.facecolor']='black'
+            plt.figure(facecolor='black')
+            plt.title("Memory Used Heap", fontsize=20,color='white')
             plt.ylim([0,maxCommited])
             #y = [0,1,2,3,4,5]
             #plt.yticks(y)
