@@ -49,7 +49,6 @@ public class AdminHealth implements HealthCheck {
                               .build();
   }
   return HealthCheckResponse.named(AdminHealth.class.getSimpleName())
-           
                             .withData("AdminHealth", "available").up().build();
   }
   
