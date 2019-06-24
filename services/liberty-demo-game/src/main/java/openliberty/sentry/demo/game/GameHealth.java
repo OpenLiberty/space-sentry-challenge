@@ -1,4 +1,4 @@
-package openliberty.sentry.demo.leaderboard;
+package openliberty.sentry.demo.game;
 
 import javax.enterprise.context.ApplicationScoped;
 import org.eclipse.microprofile.health.Health;
@@ -14,7 +14,7 @@ import javax.ws.rs.core.MediaType;
 
 @Health
 @ApplicationScoped
-public class LeaderboardHealth implements HealthCheck {
+public class GameHealth implements HealthCheck {
 
 	public boolean isHealthy() {
 		try {
@@ -44,13 +44,13 @@ public class LeaderboardHealth implements HealthCheck {
   @Override
   public HealthCheckResponse call() {
   if (!isHealthy()) {
-    return HealthCheckResponse.named(LeaderboardHealth.class.getSimpleName())
-                              .withData("LeaderboardHealth", "not available").down()
+    return HealthCheckResponse.named(GameHealth.class.getSimpleName())
+                              .withData("GameHealth", "not available").down()
                               .build();
   }
-  return HealthCheckResponse.named(LeaderboardHealth.class.getSimpleName())
+  return HealthCheckResponse.named(GameHealth.class.getSimpleName())
            
-                            .withData("LeaderboardHealth", "available").up().build();
+                            .withData("GameHealth", "available").up().build();
   }
   
 
