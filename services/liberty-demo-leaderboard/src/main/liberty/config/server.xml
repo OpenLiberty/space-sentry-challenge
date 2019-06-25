@@ -9,6 +9,8 @@
       <feature>mpConfig-1.3</feature>
       <feature>mpRestClient-1.0</feature>
       <feature>mpHealth-1.0</feature>
+      <feature>mpMetrics-1.1</feature>
+      <feature>monitor-1.0</feature>
   </featureManager>
   <cors domain="/liberty-demo-leaderboard/app/leaderboard"
     allowedOrigins="http://webapp:9080,http://game:9081"
@@ -18,4 +20,5 @@
   <httpEndpoint httpPort="${default.http.port}" httpsPort="${default.https.port}"
       id="defaultHttpEndpoint" host="*" />
   <webApplication location="liberty-demo-leaderboard.war" contextRoot="${app.context.root}"/>
+  <mpMetrics authentication="false"/>
 </server>
