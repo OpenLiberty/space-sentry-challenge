@@ -10,6 +10,8 @@
       <feature>mpConfig-1.3</feature>
       <feature>mpHealth-1.0</feature>
       <feature>mpRestClient-1.1</feature>
+      <feature>mpMetrics-1.1</feature>
+      <feature>monitor-1.0</feature>  
   </featureManager>
   <cors domain="/liberty-demo-game/gameapp/game"
     allowedOrigins="*"
@@ -19,4 +21,5 @@
   <httpEndpoint httpPort="${default.http.port}" httpsPort="${default.https.port}"
       id="defaultHttpEndpoint" host="*" />
   <webApplication location="liberty-demo-game.war" contextRoot="${app.context.root}"/>
+  <mpMetrics authentication="false"/>
 </server>
