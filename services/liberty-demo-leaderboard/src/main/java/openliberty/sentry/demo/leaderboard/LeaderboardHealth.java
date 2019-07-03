@@ -1,9 +1,16 @@
 package openliberty.sentry.demo.leaderboard;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+
 import org.eclipse.microprofile.health.Health;
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
+import org.eclipse.microprofile.metrics.Counter;
+import org.eclipse.microprofile.metrics.Metadata;
+import org.eclipse.microprofile.metrics.MetricRegistry;
+import org.eclipse.microprofile.metrics.MetricType;
+import org.eclipse.microprofile.metrics.MetricUnits;
 
 import java.net.URI;
 import javax.ws.rs.client.Client;
@@ -15,6 +22,16 @@ import javax.ws.rs.core.MediaType;
 @Health
 @ApplicationScoped
 public class LeaderboardHealth implements HealthCheck {
+	
+	@Inject
+	MetricRegistry registry;
+	
+	Metadata statsHitsCounterMetadata = new Metadata(
+		    "statsHits",                                // name
+		    "Stats Hits",                               // display name
+		    "Number of hits on the /stats endpoint",    // description
+		    MetricType.COUNTER,                         // type
+		    MetricUnits.NONE);                          // units
 
 	public boolean isHealthy() {
 		try {
@@ -24,6 +41,10 @@ public class LeaderboardHealth implements HealthCheck {
 		      URI uri = new URI("http", null, "localhost", Integer.parseInt(System.getProperty("default.http.port")), "/", null, null);
 		      
 		      url = uri.toString();
+		      
+			Counter statsHitsCounter = registry.counter(statsHitsCounterMetadata);
+			statsHitsCounter.inc();
+			
 		      }catch (Exception e) {
 		      System.out.println("URISyntaxException");
 		      }

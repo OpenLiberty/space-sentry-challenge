@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 
 import org.bson.Document;
 
@@ -13,11 +14,17 @@ import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoIterable;
-import com.mongodb.MongoSocketException;
-import com.mongodb.MongoTimeoutException;
 
 import openliberty.sentry.demo.leaderboard.models.GameStat;
 import openliberty.sentry.demo.leaderboard.models.MongoGameStat;
+
+import org.eclipse.microprofile.metrics.Counter;
+import org.eclipse.microprofile.metrics.Metadata;
+import org.eclipse.microprofile.metrics.MetricRegistry;
+import org.eclipse.microprofile.metrics.MetricType;
+import org.eclipse.microprofile.metrics.MetricUnits;
+
+
 
 @ApplicationScoped
 public class MongoDBConnector {
@@ -29,8 +36,28 @@ public class MongoDBConnector {
 	private MongoCollection<Document> statsCollection;
 	public static boolean isConnected = false;
 	
+	boolean test = false;
+	
+	@Inject
+	MetricRegistry registry;
+	
+	Metadata statsHitsCounterMetadata = new Metadata(
+		    "statsHits",                                // name
+		    "Stats Hits",                               // display name
+		    "Number of hits on the /stats endpoint",    // description
+		    MetricType.COUNTER,                         // type
+		    MetricUnits.NONE);                          // units
+	
+	Metadata totalHits = new Metadata(
+		    "totalHits",                                // name
+		    "total Hits",                               // display name
+		    "Number of total on the endpoint",    // description
+		    MetricType.COUNTER,                         // type
+		    MetricUnits.NONE);                          // units
+
+	
 	public MongoDBConnector() {
-			mongoClient = new MongoClient("mongo", 27017);
+			mongoClient = new MongoClient("localhost", 27017);
 	}
 	
 	public void connectDB(boolean testDB) {
@@ -87,7 +114,19 @@ public class MongoDBConnector {
 		}
 	}
 	
+	
 	public List<GameStat> getTopFive(){
+		Counter statsHitsCounter = registry.counter(statsHitsCounterMetadata);
+		Counter totalHitsCounter = registry.counter(totalHits);
+		
+		
+		totalHitsCounter.inc();
+		statsHitsCounter.inc();
+		if(!test) {
+			int curr = (int) statsHitsCounter.getCount();
+			statsHitsCounter.dec(curr);
+		}
+		
 		List<GameStat> topFive = new ArrayList<>();
 		
 		try {

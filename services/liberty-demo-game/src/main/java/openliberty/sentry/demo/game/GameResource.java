@@ -20,6 +20,12 @@ import javax.ws.rs.sse.OutboundSseEvent;
 import javax.ws.rs.sse.Sse;
 import javax.ws.rs.sse.SseEventSink;
 
+import org.eclipse.microprofile.metrics.Counter;
+import org.eclipse.microprofile.metrics.Metadata;
+import org.eclipse.microprofile.metrics.MetricRegistry;
+import org.eclipse.microprofile.metrics.MetricType;
+import org.eclipse.microprofile.metrics.MetricUnits;
+
 import openliberty.sentry.demo.models.Game;
 import openliberty.sentry.demo.models.GameEvent;
 import openliberty.sentry.demo.models.GameStat;
@@ -32,13 +38,26 @@ public class GameResource {
 	@Inject
 	Game game;
 	
+	@Inject
+	MetricRegistry registry;
+	
+	Metadata laserFiredByUserMetadata = new Metadata(
+		    "CurrentUser",                                // name
+		    "laser count",                               // display name
+		    "number of laser fired by current user",    // description
+		    MetricType.COUNTER,                         // type
+		    MetricUnits.NONE);                          // units
+	
     @POST
     @Path("/{playerid}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response newGame(@PathParam("playerid")String playerId){
         // tag::method-contents[]
     	 JsonObjectBuilder builder = Json.createObjectBuilder();
+ 		Counter laserFiredByUserCounter = registry.counter(laserFiredByUserMetadata);
+ 		int currCount = (int) laserFiredByUserCounter.getCount();
      	 try {
+     		laserFiredByUserCounter.dec(currCount);
         	game.newGameSession(playerId, true);
 			
 		} catch (Exception e1) {

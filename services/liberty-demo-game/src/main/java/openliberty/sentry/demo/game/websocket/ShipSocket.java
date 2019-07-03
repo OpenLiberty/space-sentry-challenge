@@ -1,5 +1,6 @@
 package openliberty.sentry.demo.game.websocket;
 
+import javax.inject.Inject;
 import javax.websocket.CloseReason;
 import javax.websocket.EndpointConfig;
 import javax.websocket.OnClose;
@@ -9,11 +10,34 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import org.eclipse.microprofile.metrics.Counter;
+import org.eclipse.microprofile.metrics.Metadata;
+import org.eclipse.microprofile.metrics.MetricRegistry;
+import org.eclipse.microprofile.metrics.MetricType;
+import org.eclipse.microprofile.metrics.MetricUnits;
+
 import openliberty.sentry.demo.iot.Ship;
 import openliberty.sentry.demo.iot.tcp.TCPCommand;
 
 @ServerEndpoint(value = "/shipsocket")
 public class ShipSocket {
+	@Inject
+	MetricRegistry registry;
+	
+	Metadata totalLaserFiredMetadata = new Metadata(
+		    "totalLaser",                                // name
+		    "total laser count",                               // display name
+		    "total number of laser fired by all users",    // description
+		    MetricType.COUNTER,                         // type
+		    MetricUnits.NONE);                          // units
+	
+	Metadata laserFiredByUserMetadata = new Metadata(
+		    "CurrentUser",                                // name
+		    "laser count",                               // display name
+		    "number of laser fired by current user",    // description
+		    MetricType.COUNTER,                         // type
+		    MetricUnits.NONE);                          // units
+	
 	Ship spaceShip = null;
 	
 	@OnOpen
@@ -34,6 +58,9 @@ public class ShipSocket {
 		// Called when a message is received. 
 		// Single endpoint per connection by default --> @OnMessage methods are single threaded!
 		// Endpoint/per-connection instances can see each other through sessions.
+		
+		Counter totalLasterCounter = registry.counter(totalLaserFiredMetadata);
+		Counter laserFiredByUserCounter = registry.counter(laserFiredByUserMetadata);
 
 		System.out.println("Got a message: " + message);
 		
@@ -61,6 +88,8 @@ public class ShipSocket {
 				spaceShip.sendCommand(TCPCommand.S_PANSHIP_DOWN);
 			}
 			else if (message.equals("fireLaser")) {
+				totalLasterCounter.inc();
+				laserFiredByUserCounter.inc();
 				spaceShip.sendCommand(TCPCommand.S_FIRELASER);
 			} 
 		}	
