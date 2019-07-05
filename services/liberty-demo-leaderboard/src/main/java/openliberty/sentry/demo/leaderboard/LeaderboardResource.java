@@ -14,6 +14,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.eclipse.microprofile.metrics.annotation.Counted;
+
 import openliberty.sentry.demo.leaderboard.models.GameStat;
 import openliberty.sentry.demo.leaderboard.models.MongoGameStat;
 import openliberty.sentry.demo.leaderboard.mongodb.MongoDBConnector;

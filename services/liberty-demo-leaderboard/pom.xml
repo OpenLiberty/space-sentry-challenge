@@ -118,6 +118,11 @@
         	<version>RELEASE</version>
         	<type>esa</type>
         </dependency>
+        <dependency>
+		    <groupId>org.eclipse.microprofile.metrics</groupId>
+		    <artifactId>microprofile-metrics-api</artifactId>
+		    <version>1.1</version>
+		</dependency>
     </dependencies>
 
 	<build>
