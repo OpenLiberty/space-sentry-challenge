@@ -41,7 +41,7 @@ public class LeaderboardHealth implements HealthCheck {
 		      URI uri = new URI("http", null, "localhost", Integer.parseInt(System.getProperty("default.http.port")), "/", null, null);
 		      
 		      url = uri.toString();
-		      
+		    //TODO: Take out metrics counter. Implemented for testing purpose  
 			Counter statsHitsCounter = registry.counter(statsHitsCounterMetadata);
 			statsHitsCounter.inc();
 			

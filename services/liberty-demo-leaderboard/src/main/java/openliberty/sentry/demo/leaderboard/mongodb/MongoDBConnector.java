@@ -119,7 +119,7 @@ public class MongoDBConnector {
 		Counter statsHitsCounter = registry.counter(statsHitsCounterMetadata);
 		Counter totalHitsCounter = registry.counter(totalHits);
 		
-		
+		//TODO: Take out metrics counter. Implemented for testing purpose
 		totalHitsCounter.inc();
 		statsHitsCounter.inc();
 		if(!test) {
