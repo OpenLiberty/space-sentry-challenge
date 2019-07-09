@@ -57,7 +57,7 @@ public class MongoDBConnector {
 
 	
 	public MongoDBConnector() {
-			mongoClient = new MongoClient("localhost", 27017);
+			mongoClient = new MongoClient("mongo", 27017);
 	}
 	
 	public void connectDB(boolean testDB) {
