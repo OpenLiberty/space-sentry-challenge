@@ -36,26 +36,6 @@ public class MongoDBConnector {
 	private MongoCollection<Document> statsCollection;
 	public static boolean isConnected = false;
 	
-	boolean test = false;
-	
-	@Inject
-	MetricRegistry registry;
-	
-	Metadata statsHitsCounterMetadata = new Metadata(
-		    "statsHits",                                // name
-		    "Stats Hits",                               // display name
-		    "Number of hits on the /stats endpoint",    // description
-		    MetricType.COUNTER,                         // type
-		    MetricUnits.NONE);                          // units
-	
-	Metadata totalHits = new Metadata(
-		    "totalHits",                                // name
-		    "total Hits",                               // display name
-		    "Number of total on the endpoint",    // description
-		    MetricType.COUNTER,                         // type
-		    MetricUnits.NONE);                          // units
-
-	
 	public MongoDBConnector() {
 			mongoClient = new MongoClient("mongo", 27017);
 	}

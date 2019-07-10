@@ -22,16 +22,6 @@ import javax.ws.rs.core.MediaType;
 @Health
 @ApplicationScoped
 public class LeaderboardHealth implements HealthCheck {
-	
-	@Inject
-	MetricRegistry registry;
-	
-	Metadata statsHitsCounterMetadata = new Metadata(
-		    "statsHits",                                // name
-		    "Stats Hits",                               // display name
-		    "Number of hits on the /stats endpoint",    // description
-		    MetricType.COUNTER,                         // type
-		    MetricUnits.NONE);                          // units
 
 	public boolean isHealthy() {
 		try {
@@ -41,9 +31,6 @@ public class LeaderboardHealth implements HealthCheck {
 		      URI uri = new URI("http", null, "localhost", Integer.parseInt(System.getProperty("default.http.port")), "/", null, null);
 		      
 		      url = uri.toString();
-		    //TODO: Take out metrics counter. Implemented for testing purpose  
-			Counter statsHitsCounter = registry.counter(statsHitsCounterMetadata);
-			statsHitsCounter.inc();
 			
 		      }catch (Exception e) {
 		      System.out.println("URISyntaxException");
