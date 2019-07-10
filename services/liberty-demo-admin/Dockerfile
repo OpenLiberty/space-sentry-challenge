@@ -1,5 +1,5 @@
 # Download latest Open Liberty from DockerHub
-FROM open-liberty:latest
+FROM rasp-liberty:latest
 
 # Create a Liberty server instance called "liberty-demo-adminServer"
 RUN /opt/ol/wlp/bin/server create liberty-demo-adminServer
