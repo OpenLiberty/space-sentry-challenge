@@ -1,5 +1,6 @@
 package openliberty.sentry.demo.game.websocket;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.websocket.CloseReason;
 import javax.websocket.EndpointConfig;
@@ -20,6 +21,7 @@ import openliberty.sentry.demo.iot.Ship;
 import openliberty.sentry.demo.iot.tcp.TCPCommand;
 
 @ServerEndpoint(value = "/shipsocket")
+@ApplicationScoped
 public class ShipSocket {
 	@Inject
 	MetricRegistry registry;
@@ -66,6 +68,9 @@ public class ShipSocket {
 		
 		if (spaceShip != null) {
 			if (message.equals("startShip")) {
+				long currentValue = laserFiredByUserCounter.getCount();
+				laserFiredByUserCounter.dec(currentValue);
+				
 				spaceShip.startShip();
 			} 
 			else if (message.equals("stopShip")) {
@@ -96,8 +101,8 @@ public class ShipSocket {
 	}
 
 	@OnError
-	public void onError(Throwable t) {
+	public void onError(Throwable t) throws Throwable {
 		// (lifecycle) Called if/when an error occurs and the connection is disrupted
-		System.out.println("Something went wrong! : " + t.getMessage());
+		t.printStackTrace();
 	}
 }
