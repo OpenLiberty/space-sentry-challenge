@@ -265,7 +265,7 @@ function runTimer() {
 function pageRedirect() {
   setTimeout(function() {
   window.location.href = "results.html";
-  }, 2000);
+  }, 0);
 }
 
 function fireLaser() {
@@ -398,6 +398,7 @@ function sendSocket(payload) {
     websocket.onopen = function(event) {
       console.log("Connection established!");
       // Start the Space Ship
+      
       if (gameStarted)
         sendSocket("startShip");
     }
