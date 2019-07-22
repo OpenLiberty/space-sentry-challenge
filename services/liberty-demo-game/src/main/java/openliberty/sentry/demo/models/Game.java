@@ -44,10 +44,11 @@ public class Game {
 
 	public void stopCurrentSession() throws Exception {
 		session.deactivateTarets();
+		/*
 		if (session.isRankedGame) {
 			GameStat stat = new GameStat(session.getPID(), session.getSessionScore());
 			writeStatWithGivenHostName(DEFAULT_HOST, stat);
-		}
+		}*/
 	}
 
 	public void startSession() throws Exception {
@@ -72,6 +73,7 @@ public class Game {
 
 	// tag::builder[]
 	private void writeStatWithGivenHostName(String hostname, GameStat gamestat) {
+		System.out.println("start writeStatWithGivenHostName()");
 		String customURLString = "http://" + hostname + ":" + DEFAULT_PORT + "/liberty-demo-leaderboard/app/leaderboard";
 		URL customURL = null;
 		System.out.println("customURLString is: " + customURLString);
@@ -103,6 +105,8 @@ public class Game {
 			        	return g2.getPid().compareTo(g1.getPid());
 			    }
 			});
+
+			System.out.println("stop writeStatWithGivenHostName()");
 		} catch (ProcessingException ex) {
 			handleProcessingException(ex);
 		} catch (UnknownUrlException e) {
@@ -113,6 +117,11 @@ public class Game {
 	}
 	
 	private List<GameStat> getTopScoreWithGivenHostName(String hostname){
+		if (session.isRankedGame) {
+			GameStat stat = new GameStat(session.getPID(), session.getSessionScore());
+			writeStatWithGivenHostName(DEFAULT_HOST, stat);
+		}
+		System.out.println("start getTopScoreWithGivenHostName()");
 		String customURLString = "http://" + hostname + ":" + DEFAULT_PORT + "/liberty-demo-leaderboard/app/leaderboard";
 		URL customURL = null;
 		System.out.println("customURLString is: " + customURLString);
@@ -141,6 +150,7 @@ public class Game {
 			        	return g2.getPid().compareTo(g1.getPid());
 			    }
 			});
+			System.out.println("stop getTopScoreWithGivenHostName()");
 			return leaderBoardCache;
 			
 		} catch (ProcessingException ex) {
