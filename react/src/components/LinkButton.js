@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {Button} from 'react-bootstrap';
-import ".././App.css";
+import "../App.css";
 
 class LinkButton extends Component {
     render(){
