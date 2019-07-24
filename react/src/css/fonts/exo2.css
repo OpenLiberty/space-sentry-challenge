@@ -1,0 +1,18 @@
+/* exo-2-regular - cyrillic_latin-ext_latin */
+@font-face {
+  font-family: 'Exo 2';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Exo 2'), local('Exo2-Regular'),
+       url('exo-2-v4-cyrillic_latin-ext_latin/exo-2-v4-cyrillic_latin-ext_latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('exo-2-v4-cyrillic_latin-ext_latin/exo-2-v4-cyrillic_latin-ext_latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* exo-2-500 - cyrillic_latin-ext_latin */
+@font-face {
+  font-family: 'Exo 2';
+  font-style: normal;
+  font-weight: 500;
+  src: local('Exo 2 Medium'), local('Exo2-Medium'),
+       url('exo-2-v4-cyrillic_latin-ext_latin/exo-2-v4-cyrillic_latin-ext_latin-500.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('exo-2-v4-cyrillic_latin-ext_latin/exo-2-v4-cyrillic_latin-ext_latin-500.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
