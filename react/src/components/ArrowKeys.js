@@ -6,6 +6,7 @@ import "../css/fonts/stm.css"
 import "../css/reset.min.css"
 import "../css/normalize.min.css"
 import "../App.css"
+import LinkButton from './LinkButton'
 
 class ArrowKeys extends Component {
     constructor(props){
@@ -23,26 +24,26 @@ class ArrowKeys extends Component {
     render() {
        return (
         <div>
-        <div class="row">   
-        <div id="arrowKeys" class="col-md-12 col-centered text-center">
-          <div class="arrow-key-container">
-            <div id="arrowUp" class="arrow-key up" data-key="38" onClick={event => console.log(event.key)}></div><br/>
-            <div id="arrowLeft" class="arrow-key left" data-key="37"></div>
-            <div id="arrowDown" class="arrow-key down" data-key="40"></div>
-            <div id="arrowRight" class="arrow-key right" data-key="39"></div>
+        <div className="row">   
+        <div id="arrowKeys" className="col-md-12 col-centered text-center">
+          <div className="arrow-key-container">
+            <div id="arrowUp" className="arrow-key up" data-key="38" onClick={event => console.log("ArrowUp")} ></div><br/>
+            <div id="arrowLeft" className="arrow-key left" data-key="37" onClick={event => console.log("ArrowLeft")}></div>
+            <div id="arrowDown" className="arrow-key down" data-key="40" onClick={event => console.log("ArrowDown")}></div>
+            <div id="arrowRight" className="arrow-key right" data-key="39" onClick={event => console.log("ArrowRight")}></div>
           </div>
         </div>
       </div>
-        <div class="row">
-          <div class="col-md-11 col-centered text-center">
-            <div class="fire-key-container">
-              <div id="fireLaser" class="fire-key fire" data-key="32"><span id="beamText">FIRE BEAM</span></div>
+        <div className="row">
+          <div className="col-md-11 col-centered text-center">
+            <div className="fire-key-container">
+              <div id="fireLaser" className="fire-key fire" data-key="32" onClick={event => console.log(" ")}><span id="beamText">FIRE BEAM</span></div>
             </div>
           </div>
        </div>
-       <div class="row">
-        <div class="col-md-11 col-centered text-center">
-          <button id="stop_button" class="btn btn-secondary">Stop Game</button>
+       <div className="row">
+        <div className="col-md-11 col-centered text-center">
+          <LinkButton id="stop_button" className="secondary" route='/' name='Stop Game'/> 
         </div>
        </div>
       </div>
