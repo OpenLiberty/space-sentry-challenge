@@ -49,7 +49,7 @@ class Score extends Component {
     render() {
        return (
         <div>
-        <div class="col-xs-4 col-md-offset-2">
+        <div className="col-xs-4 col-md-offset-2">
           <div id="scoreBoard">
           <div className="interface" className="column">
             <div className="display-container">
