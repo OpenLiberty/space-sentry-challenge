@@ -42,6 +42,9 @@ class ArrowKeys extends Component {
         this.moveDown = this.moveDown.bind(this);
         this.moveLeft = this.moveLeft.bind(this);
         this.moveRight = this.moveRight.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this)
+        this.arrowDown = this.arrowDown.bind(this);
+        this.arrowUp = this.arrowUp.bind(this);
       }
 
 
@@ -49,6 +52,7 @@ class ArrowKeys extends Component {
 // var scoreMusic500 = $('#audio-score500')[0];
 // var laserSound = $('#audio-laser')[0];
 // var countdownSound = $('#audio-cd')[0];
+
 
 startGame() {
   this.showGameBoard();
@@ -165,8 +169,6 @@ panShip() {
 	  console.log("Moving Right...");
 	  this.sendSocket("HR");
 	  this.setState({movePanRight: false})
-  } else {
-	  // Do nothing
   }
 }
 
@@ -334,12 +336,16 @@ moveRight () {
   )
 }
 
+handleKeyPress () {
+  console.log("key pressed");
+}
+
 componentDidMount(){
+  window.addEventListener('keyup', this.arrowUp);
+  window.addEventListener('keydown', this.arrowDown);
   this.startGame();
 
 }
-
-
 
 
     render() {
@@ -348,7 +354,7 @@ componentDidMount(){
         <Row>   
         <div id="arrowKeys" className="col-md-12 col-centered text-center">
           <div className="arrow-key-container">
-            <div id="arrowUp" className="arrow-key up" data-key="38" onClick={event => this.moveUp()}></div><br/>
+            <div id="arrowUp" className="arrow-key up" data-key="38" onClick={event => this.moveUp() } onKeyDown={event => this.handleKeyPress}></div><br/>
             <div id="arrowLeft" className="arrow-key left" data-key="37" onClick={event => this.moveLeft()}></div>
             <div id="arrowDown" className="arrow-key down" data-key="40" onClick={event => this.moveDown()}></div>
             <div id="arrowRight" className="arrow-key right" data-key="39" onClick={event => this.moveRight()}></div>
