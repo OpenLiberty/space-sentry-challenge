@@ -42,7 +42,6 @@ class ArrowKeys extends Component {
         this.moveDown = this.moveDown.bind(this);
         this.moveLeft = this.moveLeft.bind(this);
         this.moveRight = this.moveRight.bind(this);
-        this.handleKeyPress = this.handleKeyPress.bind(this)
         this.arrowDown = this.arrowDown.bind(this);
         this.arrowUp = this.arrowUp.bind(this);
       }
@@ -101,7 +100,9 @@ arrowDown(e) {
   } else if (e.which === 40) {
     //console.log("Keyboard - Moving down!!");
 	this.setState({moveTiltDown: true})
-  }
+  } 
+  this.panShip()
+  this.tiltShip()
 }
 
 arrowUp(e) {
@@ -113,14 +114,7 @@ arrowUp(e) {
     const key = document.querySelector(`.arrow-key[data-key="${e.which}"]`);
     key.classList.remove('press');
   }
-  console.log("MoveRight=" + this.state.movePanRight + " MoveLeft=" + this.state.movePanLeft + " MoveUp=" + this.state.moveTiltUp + " MoveDown=" + this.state.moveTiltDown);
-  if (e.which === 37 || e.which === 39) {
-	  this.panShip();
-	  //setTimeout(panShip, 250);
-  } else if (e.which === 38 || e.which === 40) {
-	  this.tiltShip();
-	  //setTimeout(tiltShip, 250);
-  } else if (e.which === 32) {
+  if (e.which === 32) {
 	  //laserSound.play();
 	  this.fireLaser();
   }
@@ -153,8 +147,6 @@ tiltShip() {
 	  console.log("Moving Down...");
 	  this.sendSocket("VD");
 	  this.setState({moveTiltDown: false})
-  } else {
-	  // Do nothing
   }
 }
 
@@ -230,7 +222,6 @@ showGameBoard() {
   this.setState({gameStarted: true})
   this.init('localhost:9080/WebSocketLocal/shipsocket');
   this.sendSocket("Hello Earthlings!");
-  //$("#gameShow").show();
 }
 
 /***********************************************************
@@ -257,7 +248,6 @@ sendSocket(payload) {
   if (this.state.websocket === null) { 
 
     var websocketNew = new WebSocket(this.state.websocket_url)
-    //var websocketNew = boundFunction;
     websocketNew.onmessage = function(event) {
       console.log("Message" + event.data);
     }
@@ -282,7 +272,7 @@ sendSocket(payload) {
       console.log("Connection closed : " + event.code);
     }
 
-    this.setState({
+    self.setState({
       websocket: websocketNew
     })
     
@@ -290,11 +280,7 @@ sendSocket(payload) {
     console.log("Sending message : ", payload);
       this.state.websocket.send(payload);
     }
-
-    
     //this.setState({websocket: websocketNew});
-    
-
 
   console.log(".. sendSocket %o, %s", this.state.websocket, this.state.websocket_url);
   return this.state.websocket;
@@ -336,10 +322,6 @@ moveRight () {
   )
 }
 
-handleKeyPress () {
-  console.log("key pressed");
-}
-
 componentDidMount(){
   window.addEventListener('keyup', this.arrowUp);
   window.addEventListener('keydown', this.arrowDown);
@@ -347,14 +329,13 @@ componentDidMount(){
 
 }
 
-
     render() {
        return (
         <div>
         <Row>   
         <div id="arrowKeys" className="col-md-12 col-centered text-center">
           <div className="arrow-key-container">
-            <div id="arrowUp" className="arrow-key up" data-key="38" onClick={event => this.moveUp() } onKeyDown={event => this.handleKeyPress}></div><br/>
+            <div id="arrowUp" className="arrow-key up" data-key="38" onClick={event => this.moveUp() }></div><br/>
             <div id="arrowLeft" className="arrow-key left" data-key="37" onClick={event => this.moveLeft()}></div>
             <div id="arrowDown" className="arrow-key down" data-key="40" onClick={event => this.moveDown()}></div>
             <div id="arrowRight" className="arrow-key right" data-key="39" onClick={event => this.moveRight()}></div>
@@ -364,7 +345,7 @@ componentDidMount(){
         <Row>
           <div className="col-md-11 col-centered text-center">
             <div className="fire-key-container">
-              <div id="fireLaser" className="fire-key fire" data-key="32" onClick={event => console.log(" ")}><span id="beamText">FIRE BEAM</span></div>
+              <div id="fireLaser" className="fire-key fire" data-key="32" onClick={event => this.fireLaser()}><span id="beamText">FIRE BEAM</span></div>
             </div>
           </div>
        </Row>
@@ -380,8 +361,3 @@ componentDidMount(){
   }
 
   export default ArrowKeys;
-
-  // <p tabIndex={-1}
-  //                   onKeyDown={event => console.log(event.key)}>
-  //                   Click to focus, then hit a key.
-  //                   </p>
