@@ -9,6 +9,7 @@ import Index from './components/Index'
 import 'bootstrap/dist/css/bootstrap.css'
 import GamePlay from './components/GamePlay';
 import Practice from './components/Practice'
+import Loading from './components/Loading'
 
 
 ReactDOM.render(
@@ -18,6 +19,8 @@ ReactDOM.render(
             <Route path="/gameplay" component={GamePlay}/>
             <Route path="/practice" component={Practice}/>
             <Route path="/game" component={Game}/>
+            <Route path="/loading" component={Loading}/>
+
         </div>
     </Router>,
 document.getElementById('root'));
