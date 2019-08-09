@@ -7,6 +7,7 @@ import "../css/reset.min.css"
 import "../css/normalize.min.css"
 import "../App.css"
 import LinkButton from './LinkButton'
+import {Redirect} from 'react-router-dom'
 
 class ArrowKeys extends Component {
     constructor(props){
@@ -26,6 +27,7 @@ class ArrowKeys extends Component {
             gameStarted :false,
             websocket : null,
             websocket_url :'ws://localhost:9080/WebSocketLocal/shipsocket',
+            redirect: false
         };
         this.showGameBoard = this.showGameBoard.bind(this);
         //this.runTimer = this.runTimer.bind(this)
@@ -264,7 +266,7 @@ sendSocket(payload) {
         self.sendSocket("starrrrtShip");
     }
 
-    websocketNew.onclose = function(event) {
+    websocketNew.onclose = (event) => {
       this.setState({
         websocket:null
       })
@@ -326,11 +328,13 @@ componentDidMount(){
   window.addEventListener('keyup', this.arrowUp);
   window.addEventListener('keydown', this.arrowDown);
   this.startGame();
-
+  this.id = setTimeout(() => this.setState({redirect:true}), 60000)
 }
 
     render() {
-       return (
+       return this.state.redirect
+       ? <Redirect to='/Leaderboard'/>
+       : (
         <div>
         <Row>   
         <div id="arrowKeys" className="col-md-12 col-centered text-center">
