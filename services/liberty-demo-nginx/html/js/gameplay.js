@@ -12,6 +12,12 @@ var websocket = null;
 var websocket_url = null;
 window.addEventListener('keyup', arrowUp)
 window.addEventListener('keydown', arrowDown)
+
+history.pushState(null, null, location.href);
+    window.onpopstate = function () {
+        history.go(1);
+    };
+
 var direction,
     movingTimeout = -1,
     FPS = 25;
