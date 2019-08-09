@@ -10,6 +10,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import GamePlay from './components/GamePlay';
 import Practice from './components/Practice'
 import Loading from './components/Loading'
+import Leaderboard from './components/Leaderboard'
 
 
 ReactDOM.render(
@@ -20,6 +21,7 @@ ReactDOM.render(
             <Route path="/practice" component={Practice}/>
             <Route path="/game" component={Game}/>
             <Route path="/loading" component={Loading}/>
+            <Route path="/leaderboard" component={Leaderboard}/>
 
         </div>
     </Router>,
