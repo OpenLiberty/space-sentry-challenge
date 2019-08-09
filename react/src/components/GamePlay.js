@@ -12,7 +12,7 @@ class GamePlay extends Component {
                 <img src={logo} className="Logo" alt="logo" />
                 <br/>
                 <EnterName underbar="Look for your name on our Leaderboards!!"/>
-                <LinkButton route='/game' name='Start Game'/>
+                <LinkButton route='/loading' name='Start Game'/>
                 <br/>
                 <LinkButton route='/' name='Return to Main Menu'/> 
             </header>
