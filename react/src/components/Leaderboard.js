@@ -32,6 +32,23 @@ class Leaderboard extends Component {
             finalScore: data.score
         });
         console.log("GET leaderboard: " + data.leaderboard);
+        var leaders = data.leaderboard;
+        var count = 0;
+        for (var x in leaders) {
+            count++;
+            var gamestat = leaders[x];
+            document.getElementById('board').innerHTML +=
+            '<li class="rank">' +
+            '<h2 class="name">' + gamestat.pid +
+            '</h2>' +
+            '<small class="pts">' + gamestat.score +
+            '</small></li>';    
+        }
+        if (count > 0){
+            console.log(leaders);
+            //isRankedGame = true;
+            //$("#board").show();
+        }
     }
 
     componentDidMount(){
@@ -54,13 +71,13 @@ class Leaderboard extends Component {
                             <div id="results" className="col-md-4 p-0">
                             <div id="message" className="m-0"> Challenge Over! </div>
                             <div id="finalScoreWrapper" className="m-0"> Your Score : {this.state.finalScore}</div>
-                            <div id="board" className='leaderboard m-0'>
+                            <div id="board" className='leaderboard text-center'>
                                 <h2 className="title"><img id="trophy" src={trophy}/>
                                 LEADERBOARD
                                 </h2>
                                 <ol id="board" className="leaderboard"></ol>
                             </div>
-                            <div id="tryAgain" className="m-0">
+                            <div className="text-center">
                                 <button id="startOverBtn" className="pulse-button"> Restart Challenge ! </button>
                             </div>
                             </div>
