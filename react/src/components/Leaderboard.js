@@ -9,6 +9,7 @@ import "../css/fonts/scpro.css"
 import "../css/fonts/montserrat.css"
 import "../css/fonts/stm.css"
 import "../css/normalize.min.css"
+import LinkButton from './LinkButton'
 
 class Leaderboard extends Component {
     constructor(props){
@@ -78,7 +79,8 @@ class Leaderboard extends Component {
                                 <ol id="board" className="leaderboard"></ol>
                             </div>
                             <div className="text-center">
-                                <button id="startOverBtn" className="pulse-button"> Restart Challenge ! </button>
+                                <br/>
+                            <LinkButton route='/' name='Return to Main Menu'/> 
                             </div>
                             </div>
                         </Row>

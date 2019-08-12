@@ -12,7 +12,7 @@ class Index extends Component {
                 <br/>
                 <LinkButton route='/gameplay' name='Space Laser Challenge'/>
                 <br/>
-                <LinkButton route='/leaderboard' name='Settings'/> 
+                <LinkButton route='/settings' name='Settings'/> 
                 <br/>
                 <LinkButton route='/practice' name='Practice'/> 
             </header>

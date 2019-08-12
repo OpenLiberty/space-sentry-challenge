@@ -11,6 +11,7 @@ import GamePlay from './components/GamePlay';
 import Practice from './components/Practice'
 import Loading from './components/Loading'
 import Leaderboard from './components/Leaderboard'
+import Settings from './components/Settings';
 
 
 ReactDOM.render(
@@ -22,6 +23,7 @@ ReactDOM.render(
             <Route path="/game" component={Game}/>
             <Route path="/loading" component={Loading}/>
             <Route path="/leaderboard" component={Leaderboard}/>
+            <Route path="/settings" component={Settings}/>
 
         </div>
     </Router>,
