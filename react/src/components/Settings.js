@@ -2,12 +2,62 @@ import React, {Component} from 'react';
 import logo from "../images/logo.png";
 import "../App.css"
 import "../css/admin.css"
-import Timer from './Timer'
-import Score from './Score'
-import ArrowKeys from './ArrowKeys'
+import LinkButton from './LinkButton'
 import { Container, Card , Row, Col} from 'react-bootstrap';
 
 class Settings extends Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            target_status: "Connecting...",
+            target_ip: null,
+            ship_status: "Connecting...",
+            ship_ip: null
+            
+        }
+        this.getDevicesStatus = this.getDevicesStatus.bind(this)
+        this.showDevicesStatus = this.showDevicesStatus.bind(this)
+
+    }
+    
+    componentDidMount() {
+        this.getDevicesStatus()
+    }
+
+    getDevicesStatus(){
+        fetch("http://localhost:9083/liberty-demo-admin/adminapp/admin/devices/targets").then(res => res.json()).then(results => this.showDevicesStatus(results, "targets"));
+        fetch("http://localhost:9083/liberty-demo-admin/adminapp/admin/devices/ship").then(res => res.json()).then(results => this.showDevicesStatus(results, "ship"));
+    }
+
+    showDevicesStatus(data, device){
+        console.log("GET DATA: " + JSON.stringify(data));
+        if (device === "targets") {
+            if (data.targets_connected === "true") {
+                this.setState({
+                    target_status: "Connected!",
+                    target_ip: data.targets_ip
+                })
+            }
+            else {
+              //target_button.disabled = false;
+              this.setState({
+                  target_status: "Not Connected"
+              })
+            }
+          } else if (device === "ship") {
+              if (data.ship_connected === "true") {
+                this.setState({
+                    ship_status: "Connected!",
+                    ship_ip: data.ship_ip
+                })
+              } else {
+                //ship_button.disabled = false;
+                this.setState({
+                    ship_status: "Not Connected"
+                })
+              }
+          }
+    }
 
     render(){
         return (
@@ -27,8 +77,8 @@ class Settings extends Component {
                             <div>
                             <h4 className="heading">Targets Array</h4>
                             <button className="futurebutton" id="target_button" disabled>Connect</button>
-                            <div> Status: <span id="target_status">Connecting...</span> </div>
-                            <div> IP: <span id="target_ip">Unknown</span> </div>
+                            <div> Status: <span id="target_status">{this.state.target_status}</span> </div>
+                            <div> IP: <span id="target_ip">{this.state.target_ip}</span> </div>
                             <div className="futurepanel__divider"></div>
                             </div>
                             <div>
@@ -103,8 +153,8 @@ class Settings extends Component {
                             <div>
                             <h4 className="heading">Spaceship</h4>
                             <button className="futurebutton" id="ship_button" disabled>Connect</button>
-                            <div> Status: <span id="ship_status">Connecting...</span> </div>
-                            <div> IP: <span id="ship_ip">Unknown</span> </div>
+                            <div> Status: <span id="ship_status">{this.state.ship_status}</span> </div>
+                            <div> IP: <span id="ship_ip">{this.state.ship_ip}</span> </div>
                             <div className="futurepanel__divider"></div>
                             </div>	
                             <div className="futuregrid">
@@ -134,7 +184,7 @@ class Settings extends Component {
                 </Row>
                 <div className="row">
                     <div className="col-md-11 col-centered text-center">
-                        <button className="btn btn-primary" id="menuButton">Return to Menu</button>
+                        <LinkButton route='/' name='Return to Main Menu'/> 
                     </div>
                 </div>
                 </div>
