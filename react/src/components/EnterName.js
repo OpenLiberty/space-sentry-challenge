@@ -5,10 +5,11 @@ import {Form, Button} from 'react-bootstrap';
 class EnterName extends Component {
     constructor(props) {
         super(props);
-        this.state = {value: ''};
+        this.state = {value: ""};
     
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.sendUser = this.sendUser.bind(this);
     }
 
     handleChange(event) {
@@ -16,9 +17,21 @@ class EnterName extends Component {
     }
     
     handleSubmit(event) {
-        alert('A name was submitted: ' + this.state.value);
+        this.sendUser()
         event.preventDefault();
     }
+
+    sendUser () {
+        if (this.state.value === "") alert('Please enter a valid user name');
+        else{
+            var data = this.state.value;
+        fetch("http://localhost:9081/liberty-demo-game/gameapp/game/" + this.state.value, {
+            method: "POST",
+            body: data
+        }).then(res => res.json()).then((result) => console.log('Result:', JSON.stringify(result)), (error) => console.log('Error:', JSON.stringify(error)))
+    }
+    }
+
     render(){
         return (
             <div className="EnterName">

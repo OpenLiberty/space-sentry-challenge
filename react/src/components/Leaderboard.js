@@ -11,6 +11,32 @@ import "../css/fonts/stm.css"
 import "../css/normalize.min.css"
 
 class Leaderboard extends Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            finalScore: 0,
+        }
+        this.endGame = this.endGame.bind(this)
+        this.showGameStats = this.showGameStats.bind(this)
+    }
+
+    endGame(){
+        fetch("http://localhost:9081/liberty-demo-game/gameapp/game/score").then(res => res.json()).then((result) => this.showGameStats(result));
+        //endMusic.play()
+    }
+
+    showGameStats(data){
+        console.log("GET DATA: " + JSON.stringify(data));
+        console.log("GET score: " + data.score);
+        this.setState({
+            finalScore: data.score
+        });
+        console.log("GET leaderboard: " + data.leaderboard);
+    }
+
+    componentDidMount(){
+        this.endGame();
+    }
 
     render(){
         return (
@@ -27,12 +53,12 @@ class Leaderboard extends Component {
                         <Row>
                             <div id="results" className="col-md-4 p-0">
                             <div id="message" className="m-0"> Challenge Over! </div>
-                            <div id="finalScoreWrapper" className="m-0"> Your Score : <span id="finalScore"></span> </div>
+                            <div id="finalScoreWrapper" className="m-0"> Your Score : {this.state.finalScore}</div>
                             <div id="board" className='leaderboard m-0'>
                                 <h2 className="title"><img id="trophy" src={trophy}/>
                                 LEADERBOARD
                                 </h2>
-                                <ol id="board" class="leaderboard"></ol>
+                                <ol id="board" className="leaderboard"></ol>
                             </div>
                             <div id="tryAgain" className="m-0">
                                 <button id="startOverBtn" className="pulse-button"> Restart Challenge ! </button>

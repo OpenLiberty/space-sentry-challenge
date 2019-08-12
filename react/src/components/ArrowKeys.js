@@ -27,11 +27,10 @@ class ArrowKeys extends Component {
             gameStarted :false,
             websocket : null,
             websocket_url :'ws://localhost:9080/WebSocketLocal/shipsocket',
-            redirect: false
+            redirect: false,
+            source:null
         };
         this.showGameBoard = this.showGameBoard.bind(this);
-        //this.runTimer = this.runTimer.bind(this)
-        //this.runningTimer = this.runningTimer.bind(this)
         this.sendSocket = this.sendSocket.bind(this);
         this.init = this.init.bind(this);
         this.panShip = this.panShip.bind(this);
@@ -57,19 +56,9 @@ class ArrowKeys extends Component {
 
 startGame() {
   this.showGameBoard();
-  //this.runTimer();
-
-  // Create EventSource object
-  // var source = new EventSource(
-  //   'http://localhost:9081/liberty-demo-game/gameapp/game/gamestream');
-
-  // source.onmessage = function(e) {
-  //   updateScore(e);
-  // };
 }
 
 stopGameSuccess() {
-  //clearInterval(this.runningTimer);
   this.sendSocket("stopShip");
   this.setState({gameStarted: false})
   this.state.websocket.close();
@@ -91,16 +80,12 @@ arrowDown(e) {
     key.classList.add('press');
   }
   if (e.which === 37) {
-    //console.log("Keyboard - Moving left!!");
     this.setState({movePanLeft: true})
   } else if (e.which === 39) {
-    //console.log("Keyboard - Moving right!!");
     this.setState({movePanRight: true})
   } else if (e.which === 38) {
-    //console.log("Keyboard - Moving up!!");
 	this.setState({moveTiltUp : true})
   } else if (e.which === 40) {
-    //console.log("Keyboard - Moving down!!");
 	this.setState({moveTiltDown: true})
   } 
   this.panShip()
@@ -165,54 +150,6 @@ panShip() {
 	  this.setState({movePanRight: false})
   }
 }
-
-// updateScore(event) {
-//   console.log("EVENT DATA: " + event.data);
-//   var gameevent = JSON.parse(event.data);
-//   scoreVal.textContent = gameevent.score;
-//   var score = parseInt(gameevent.score);
-//   if (score % 500 == 0 && score > 0) {
-//     scoreMusic500.play();
-//   } else {
-//     scoreMusic.play();
-//   }
-
-// }
-
-// displayTime(decSeconds) {
-//   const minutes = Math.floor(decSeconds / 600);
-//   const restDecSecs = decSeconds % 600;
-//   const seconds = Math.floor(restDecSecs / 10);
-//   const deciSeconds = restDecSecs % 10;
-
-//   const displayMins = `${minutes < 10 ? "0" : ""}${minutes}`;
-//   const displaySecs = `${seconds < 10 ? "0" : ""}${seconds}`;
-//   const displayDecSecs = `${deciSeconds}`;
-
-//   const display = `${displayMins}:${displaySecs}.${displayDecSecs}`;
-
-//   timerDisplay.textContent = display;
-// }
-
-// runTimer() {
-//   clearInterval(runningTimer);
-//   let timer = 600;
-
-//   // start interval
-//   runningTimer = setInterval(() => {
-//     const runTimer = timer--;
-//     if (runTimer == 100) {
-//       countdownSound.play();
-//     }
-//     // if time is up (reached max of 60 secs) stop timer
-//     if (runTimer < countDownTime) {
-//       timer = 600;
-//     }
-
-//     // display timer
-//     displayTime(timer);
-//   }, 100);
-// }
 
 
 fireLaser() {

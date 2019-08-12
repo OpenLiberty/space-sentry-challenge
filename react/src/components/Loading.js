@@ -27,7 +27,7 @@ class Loading extends Component {
         :    <div className="Game"> 
                 <header className="App-header">
                     <img src={logo} className="Logo" alt="logo" />
-                    <ReactPlayer url='http://localhost:8000/terminal-cut.mp4' playing="true" width="1500px" height="500px"/>
+                    <ReactPlayer url='http://localhost:8000/terminal-cut.mp4' playing width="1500px" height="500px"/>
                     
                 </header>
             </div>

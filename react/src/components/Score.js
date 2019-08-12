@@ -10,41 +10,47 @@ class Score extends Component {
     constructor(props){
         super(props)
         this.state={
-            minutes:'00',
-            seconds:'59',
-            start: true
+            source: null,
+            scoreVal :document.getElementById('scoreVal'),
+            score: 0
         }
-        //this.intervalHandle;
 
-        this.startCountDown = this.startCountDown.bind(this);
-        this.tick = this.tick.bind(this);
+        this.updateScore = this.updateScore.bind(this);
+        this.startScoreCheck = this.startScoreCheck.bind(this);
     }
 
     componentDidMount(){
-        this.timerID = setInterval(
-            () => this.tick(),
-            1000
-          );    
+      this.startScoreCheck()
     }
 
-    tick() {
-        var sec = this.state.seconds-1;
-        this.setState({
-          seconds: sec
-        })
-        if (sec < 10) {
-          this.setState({
-            seconds: "0" + this.state.seconds,
-          })
-        }
-        if (sec === 0) {
-        clearInterval(this.timerID);
-        }
+    startScoreCheck() {
+      //Create EventSource object
+      var sourceNew = new EventSource(
+        'http://localhost:9081/liberty-demo-game/gameapp/game/gamestream');
+
+      sourceNew.onmessage = (e) => {
+        this.updateScore(e);
+      };
+      this.setState({
+        source: sourceNew
+   })
     }
 
-    startCountDown() {
-        this.intervalHandle = setInterval(this.tick, 1000);
-        }
+    updateScore(event) {
+      console.log("EVENT DATA: " + event.data);
+      var gameevent = JSON.parse(event.data);
+      this.setState({
+        score: gameevent.score
+      })
+      var score = parseInt(gameevent.score);
+      if (score % 500 == 0 && score > 0) {
+        //scoreMusic500.play();
+      } else {
+        //scoreMusic.play();
+      }
+    
+    }
+
 
     render() {
        return (
@@ -55,7 +61,7 @@ class Score extends Component {
             <div className="display-container">
               <div id="gameText"> Your Score </div>
               <div className="score">
-                <span id="scoreVal">0</span>
+                <span id="scoreVal">{this.state.score}</span>
               </div>
             </div>
           </div>
