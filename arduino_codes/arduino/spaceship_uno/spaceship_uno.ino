@@ -1,12 +1,5 @@
-#include <SoftwareSerial.h> // Include the Software Serial to add the wifi module
 #include <Servo.h> // Include the Servo Library to control the servos
 
-/*********************************
-    ESP8266 MODULE CONFIGURATION
-**********************************/
-#define RX 2
-#define TX 3
-SoftwareSerial esp8266(RX,TX);       // RX, TX for ESP8266
 bool DEBUG = true;   //show more logs
 
 /*********************************
@@ -67,9 +60,9 @@ unsigned long interval = 170; // Delay to determine when we see the next LED
 int LEDstate=0x01; // Variable to track which LED to turn on, start at 0001
 
 void setup() {
-  // Serial Communication between Arduino and ESP8266 module
+  // Serial Communication between Arduino and Serial1 module
   Serial.begin(9600);
-  esp8266.begin(9600);
+  Serial1.begin(9600);
 
   // Assign the pins to the Arduino
   // Led pins
@@ -105,44 +98,44 @@ void loop() {
     blinkLeds();
   }
   
-  if(esp8266.available() > 0){
-    String message = esp8266.readStringUntil('\n');
+  if(Serial1.available() > 0){
+    String message = Serial1.readStringUntil('\n');
     if (message.length() > 2 && message.indexOf("?") == -1) {
       Serial.println("Received message from TCP Client: "+ message);
       if (find(message,"ping")){  //receives ping from wifi
-          esp8266.println("ok");   
+          Serial1.println("ok");   
       } 
       else if (find(message, "GSTR")){
-        esp8266.println("ok");   
+        Serial1.println("ok");   
         isGameStarted = true;
         gameCycleStart();
       } 
       else if (find(message, "GG")){
-        esp8266.println("ok");   
+        Serial1.println("ok");   
         isGameStarted = false;
         resetShip();
       } 
       else if (find(message,"FIRE")){ // Fire Laser
-        esp8266.println("ok");   
+        Serial1.println("ok");   
         fireLaser();
       }
       else if (find(message,"LSROFF")){ // Fire Laser
-        esp8266.println("ok");   
+        Serial1.println("ok");   
         Serial.println("LASER OFF"); 
         fireLaserOff();
       } 
       else if (find(message,"PAN")){ // Fire Laser
-        esp8266.println("ok");   
+        Serial1.println("ok");   
         Serial.println("Panning Spaceship"); 
         sweepPanShip(); 
       } 
       else if (find(message,"TILT")){ // Fire Laser
-        esp8266.println("ok");   
+        Serial1.println("ok");   
         Serial.println("Tilting Spaceship"); 
         sweepTiltShip(); 
       } 
       else {
-        esp8266.println("NC");
+        Serial1.println("NC");
         Serial.println("\n"+ message + " is not a valid input");
       }
     }
@@ -160,33 +153,33 @@ void gameCycleStart() {
   int gameTimer = 0;
   
    while (game) {
-      if (esp8266.available() > 0){
-        String message = esp8266.readStringUntil('\n');
+      if (Serial1.available() > 0){
+        String message = Serial1.readStringUntil('\n');
         if (message.length() > 2 && message.indexOf("?") == -1){
             Serial.println("Received message from TCP Client for Game session: "+ message);
             if (find(message,"GG")){
               resetShip();
-              esp8266.println("ok");   
+              Serial1.println("ok");   
             }
             else if (find(message,"LFT")){ // Horizontal servo angle Left
+                Serial1.println("ok");   
                 panSpaceShipLeft();
-                esp8266.println("ok");   
             }
             else if (find(message,"RGT")){ // Horizontal servo angle Right
+                Serial1.println("ok");    
                 panSpaceShipRight();
-                esp8266.println("ok");    
             }  
             else if (find(message,"UP")){ // Vertical servo angle Up
+                Serial1.println("ok");   
                 tiltSpaceShipUp();
-                esp8266.println("ok");   
             }
             else if (find(message,"DWN")){ // Vertical servo angle Down
+                Serial1.println("ok");   
                 tiltSpaceShipDown();
-                esp8266.println("ok");   
             }  
             else if (find(message,"FIRE")){ // Fire Laser
                 fireLaser();
-                esp8266.println("ok"); 
+                Serial1.println("ok"); 
            }
         }
        }
@@ -268,89 +261,74 @@ void sweepTiltShip() {
   servoV.detach();
 }
 
+
 void panSpaceShipLeft() {
-  servoH.attach(SERVOPINH);
+  if(!servoH.attached())
+    servoH.attach(SERVOPINH);
   // LEFT
-  if (currHorPos > servoHMin && currHorPos <= servoHMax) {
+  currHorPos = servoH.read();
+  if (currHorPos > servoHMin) {
     currHorPos = currHorPos - angleStepH;
-    if (currHorPos < servoHMin) {
-      currHorPos = servoHMin;
-    } 
   }
-  // Convert angle to microseconds
-  unsigned int ms = degree2ms(currHorPos);
-  servoH.writeMicroseconds(ms); // set servo to new angle
-  Serial.print("Moved to: ");
-  Serial.print(currHorPos);   // print the angle
-  Serial.print(" degrees / ");
-  Serial.print(ms);   // print the microseconds
-  Serial.println(" ms");
-  delay(100);
-  servoH.detach();
+  if (currHorPos < servoHMin) {
+     Serial.print("reached left.");
+     currHorPos = servoHMin;
+  } 
+  servoH.write(currHorPos);
+   // set servo to new angle
+  
+  //Serial.print("Moved to: ");
+  //Serial.print(currHorPos);   // print the angle
 }
 
 void panSpaceShipRight() {
-  servoH.attach(SERVOPINH);
+  if(!servoH.attached())
+    servoH.attach(SERVOPINH);
   // RIGHT
-  if (currHorPos >= servoHMin && currHorPos <= servoHMax) {
+  currHorPos = servoH.read();
+  if (currHorPos < servoHMax) {
     currHorPos = currHorPos + angleStepH;
-    if (currHorPos > servoHMax) {
-      currHorPos = servoHMax;
-    } 
   }
-  // Convert angle to microseconds
-  unsigned int ms = degree2ms(currHorPos);
-  servoH.writeMicroseconds(ms); // set servo to new angle
-  Serial.print("Moved to: ");
-  Serial.print(currHorPos);   // print the angle
-  Serial.print(" degrees / ");
-  Serial.print(ms);   // print the microseconds
-  Serial.println(" ms");
-  delay(100);
-  servoH.detach();
+
+  if (currHorPos > servoHMax) {
+    Serial.print("reached right.");
+    currHorPos = servoHMax;
+  } 
+  servoH.write(currHorPos);
+
+  
+  //Serial.print("Moved to: ");
+  //Serial.print(currHorPos);   // print the angle
 }
 
 void tiltSpaceShipUp() {
-  servoV.attach(SERVOPINV);
+  if(!servoV.attached())
+    servoV.attach(SERVOPINV);
   // UP
-  if (currVerPos >= servoVMin && currVerPos <= servoVMax) {
+  if (currVerPos < servoVMax) {
     currVerPos = currVerPos + angleStepV;
-    if (currVerPos > servoVMax) {
-      currVerPos = servoVMax;
-    } 
   }
-  // Convert angle to microseconds
-  unsigned int ms = degree2ms(currVerPos);
-  servoV.writeMicroseconds(ms); // set servo to new angle
-  Serial.print("Moved to: ");
-  Serial.print(currVerPos);   // print the angle
-  Serial.print(" degrees / ");
-  Serial.print(ms);   // print the microseconds
-  Serial.println(" ms");
-  delay(100);
-  servoV.detach();
+
+  if (currVerPos > servoVMax) {
+    currVerPos = servoVMax;
+  } 
+  servoV.write(currVerPos); // set servo to new angle
 }
 
 void tiltSpaceShipDown() {
-  servoV.attach(SERVOPINV);
+  if(!servoV.attached())
+    servoV.attach(SERVOPINV);
   // DOWN
-  if (currVerPos > servoVMin && currVerPos <= servoVMax) {
+  if (currVerPos > servoVMin) {
     currVerPos = currVerPos - angleStepV;
-    if (currVerPos < servoVMin) {
-      currVerPos = servoVMin;
-    } 
   }
-  // Convert angle to microseconds
-  unsigned int ms = degree2ms(currVerPos);
-  servoV.writeMicroseconds(ms); // set servo to new angle
-  Serial.print("Moved to: ");
-  Serial.print(currVerPos);   // print the angle
-  Serial.print(" degrees / ");
-  Serial.print(currVerPos);   // print the microseconds
-  Serial.println(" ms");
-  delay(100);
-  servoV.detach();
+
+  if (currVerPos < servoVMin) {
+    currVerPos = servoVMin;
+  } 
+  servoV.write(currVerPos); // set servo to new angle
 }
+
 
 void blinkLeds() {
   turnOnAllLeds();
