@@ -1,0 +1,1 @@
+The Space Sentry project is powered by an Arduino MEGA, combined with a custom designed PCB as well as custom wiring. This folder contains all the resources needed to replicate the hardware of the Space Sentry project.
