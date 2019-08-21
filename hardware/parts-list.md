@@ -27,6 +27,7 @@ Required Components:
 - 51 x Molex Part #39000048 (Mini-Fit Male Crimp Terminal 22-28 AWG)
 - 5 x Micro Servo
 - 5 x 12mm Photoresistor
+- 5 x 10kOhm 1206 SMD Resistors
 
 Servo Connectors:
 - 1 x Molex Part #39012160 (Intermediate connector for servo wires (M) 16 wire)
@@ -40,3 +41,18 @@ Photoresistor Connectors:
 - 5 x Molex Part #39012020 (Intermediate connector for the photo-resistors (M) 2 wire)
 - 5 x Molex Part #39012021 (Intermediate connector for the photo-resistors (F) 2 wire)
 
+Suggested Retailors and Notes:
+---
+Note that the quantities listed for the components above are the _required minimum_. It is highly recommended to buy multiple extras as there will be parts that will get lost or broken.
+
+Most of the components were purchased through the **[Digi-Key](https://www.digikey.ca/)** website. Copy the part number as listed above, and throw them in the product search window of the website to bring up a list of components that fit the required blueprint.
+
+[insert image of search bar]
+
+An example using the part #39012160:
+
+[insert image of part]
+
+The common parts and tools can also be easily found in your local electronic hobby stores.
+
+Amazon is also a reliable and quick online retailor.
