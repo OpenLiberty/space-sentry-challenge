@@ -47,11 +47,11 @@ Note that the quantities listed for the components above are the _required minim
 
 Most of the components were purchased through the **[Digi-Key](https://www.digikey.ca/)** website. Copy the part number as listed above, and throw them in the product search window of the website to bring up a list of components that fit the required blueprint.
 
-[insert image of search bar]
+![image](https://user-images.githubusercontent.com/26514093/63449628-78fddc80-c40e-11e9-9845-ceef97f38aff.png)
 
 An example using the part #39012160:
 
-[insert image of part]
+![image](https://user-images.githubusercontent.com/26514093/63449567-5c61a480-c40e-11e9-959e-5d5a367302f1.png)
 
 The common parts and tools can also be easily found in your local electronic hobby stores.
 
