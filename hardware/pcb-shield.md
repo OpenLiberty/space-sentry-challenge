@@ -2,7 +2,7 @@ Background
 ---
 Space Sentry V1 used a breadboard to route all external components to the right pins on the Arduino, similar to the schematic shown below: 
 
-[insert fritzing schematic]
+![Breadboard Circuit](images/breadboard-circuit.jpg)
 
 While this is the fastest way to build an electronic project, it wasn't robust. The jumper wires connecting parts together were easy to pull apart, and there were many of them. The purpose of the PCB was to provide a better solution to those issues. It reduced the number of pluggables, making the project easier to put together and start up. It also utilizes connectors with tabs, so they cannot be pulled apart accidentally. It completely replaced the breadboard, and reduced the size of the build. The design tool used is Autodesk EAGLE.
 
