@@ -10,3 +10,5 @@ JLCPCB offers 2, 4, and 6 layer PCB printing. Due to the simplicity of the PCB d
 6. Leave all of the default settings, and select the `DHL International Express` option for the fastest shipping time.
 7. Click the `save to cart` button, which leads to a page to review your order.
 8. If everything is sufficient, click the `Checkout securely` button to complete the order.
+
+Check out JLCPCB's own mini video tutorial [here](https://jlcpcb.com/video/place.v2.mp4).
