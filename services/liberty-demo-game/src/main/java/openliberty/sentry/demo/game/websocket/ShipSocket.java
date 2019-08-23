@@ -91,6 +91,22 @@ public class ShipSocket {
 			else if (message.contains("VD")) {
 				System.out.println("Pan Direction: Down");
 				spaceShip.sendCommand(TCPCommand.S_PANSHIP_DOWN);
+			} 
+			else if (message.contains("H2L")) {
+				System.out.println("Pan Direction: Left fast");
+				spaceShip.sendCommand(TCPCommand.S_PANSHIP_LEFT_2);
+			}			
+			else if (message.contains("H2R")) {
+				System.out.println("Pan Direction: Right fast");
+				spaceShip.sendCommand(TCPCommand.S_PANSHIP_RIGHT_2);
+			}
+			else if (message.contains("V2U")) {
+				System.out.println("Pan Direction: Up fast");
+				spaceShip.sendCommand(TCPCommand.S_PANSHIP_UP_2);
+			}			
+			else if (message.contains("V2D")) {
+				System.out.println("Pan Direction: Down fast");
+				spaceShip.sendCommand(TCPCommand.S_PANSHIP_DOWN_2);
 			}
 			else if (message.equals("fireLaser")) {
 				totalLasterCounter.inc();
