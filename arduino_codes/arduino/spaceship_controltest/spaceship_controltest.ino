@@ -30,8 +30,11 @@ int servoHMin = 10;
 int servoHMax = 170; 
 
 // Servo increment/decrement step
-int angleStepH = 4;
-int angleStepV = 2; //6
+int angleStepH = 2;
+int angleStepV = 1; //6
+
+int angleStepH2 = 10;
+int angleStepV2 = 5; //6
 
 /***********
     PINS
@@ -69,20 +72,36 @@ void loop() {
       }
       else if (find(message,"LFT")) { // Horizontal servo angle Left
           Serial2.println("ok"); 
-          panSpaceShipLeft();  
+          panSpaceShipLeft(angleStepH);  
       }
       else if (find(message,"RGT")){ // Horizontal servo angle Right
           Serial2.println("ok");   
-          panSpaceShipRight();
+          panSpaceShipRight(angleStepH);
       }  
       else if (find(message,"UP")){ // Vertical servo angle Up
-          tiltSpaceShipUp();
+          tiltSpaceShipUp(angleStepV);
           Serial2.println("ok");   
       }
       else if (find(message,"DWN")){ // Vertical servo angle Down
-          tiltSpaceShipDown();
+          tiltSpaceShipDown(angleStepV);
           Serial2.println("ok");   
-      } else {
+      }       
+      else if (find(message,"L2FT")) { // Horizontal servo angle Left
+          Serial2.println("ok"); 
+          panSpaceShipLeft(angleStepH2);  
+      }
+      else if (find(message,"R2GT")){ // Horizontal servo angle Right
+          Serial2.println("ok");   
+          panSpaceShipRight(angleStepH2);
+      }  
+      else if (find(message,"U2P")){ // Vertical servo angle Up
+          tiltSpaceShipUp(angleStepV2);
+          Serial2.println("ok");   
+      }
+      else if (find(message,"D2WN")){ // Vertical servo angle Down
+          tiltSpaceShipDown(angleStepV2);
+          Serial2.println("ok");   
+      }  else {
           Serial2.println("ok"); 
       }
     }
@@ -90,13 +109,13 @@ void loop() {
 
 }
 
-void panSpaceShipLeft() {
+void panSpaceShipLeft(int stepAngle) {
   if(!servoH.attached())
     servoH.attach(SERVOPINH);
   // LEFT
   currHorPos = servoH.read();
   if (currHorPos > servoHMin) {
-    currHorPos = currHorPos - angleStepH;
+    currHorPos = currHorPos - stepAngle;
   }
   if (currHorPos < servoHMin) {
      Serial.print("reached left.");
@@ -109,13 +128,13 @@ void panSpaceShipLeft() {
   //Serial.print(currHorPos);   // print the angle
 }
 
-void panSpaceShipRight() {
+void panSpaceShipRight(int stepAngle) {
   if(!servoH.attached())
     servoH.attach(SERVOPINH);
   // RIGHT
   currHorPos = servoH.read();
   if (currHorPos < servoHMax) {
-    currHorPos = currHorPos + angleStepH;
+    currHorPos = currHorPos + stepAngle;
   }
 
   if (currHorPos > servoHMax) {
@@ -129,12 +148,12 @@ void panSpaceShipRight() {
   //Serial.print(currHorPos);   // print the angle
 }
 
-void tiltSpaceShipUp() {
+void tiltSpaceShipUp(int stepAngle) {
   if(!servoV.attached())
     servoV.attach(SERVOPINV);
   // UP
   if (currVerPos < servoVMax) {
-    currVerPos = currVerPos + angleStepV;
+    currVerPos = currVerPos + stepAngle;
   }
 
   if (currVerPos > servoVMax) {
@@ -143,12 +162,12 @@ void tiltSpaceShipUp() {
   servoV.write(currVerPos); // set servo to new angle
 }
 
-void tiltSpaceShipDown() {
+void tiltSpaceShipDown(int stepAngle) {
   if(!servoV.attached())
     servoV.attach(SERVOPINV);
   // DOWN
   if (currVerPos > servoVMin) {
-    currVerPos = currVerPos - angleStepV;
+    currVerPos = currVerPos - stepAngle;
   }
 
   if (currVerPos < servoVMin) {
