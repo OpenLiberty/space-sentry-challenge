@@ -12,3 +12,5 @@ JLCPCB offers 2, 4, and 6 layer PCB printing. Due to the simplicity of the PCB d
 8. If everything is sufficient, click the `Checkout securely` button to complete the order.
 
 Check out JLCPCB's own mini video tutorial [here](https://jlcpcb.com/video/place.v2.mp4).
+
+Once the board arrives, you can solder the parts to the board, instructions can be found in the [pcb-soldering.md](pcb-soldering.md) file.

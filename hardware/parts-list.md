@@ -5,12 +5,12 @@ Required Tools
 - Wire Cutters (Capable of stripping 22-28 AWG wiring)
 - Open Barrel Terminal Crimper (Capable of crimping 22-28 AWG wiring)
 - Wire Cutters (Generic)
-- Silicone 22AWG Flex Wire (multiple colours)
-- Hook-up Wire 22AWG (multiple colours)
+- Silicone 24AWG Flex Wire (multiple colours)
+- Hook-up Wire 24AWG (multiple colours)
 - Heat Shrink Tubing (multiple sizes)
 - Desolder Pump
 
-Optional:
+Optional (but highly recommended):
 - Thin Tipped Tweezers (makes the soldering of the surface mount resistors much easier)
 - Helping Hands (makes the soldering of wires much easier)
 - Fine Conical Soldering Iron Tip (makes the soldering of small components easier)
@@ -21,8 +21,13 @@ Required Components:
 - The custom PCB Arduino shield documentation can be found in the [pcb-shield.md](pcb-shield.md) file, for steps on ordering the boards, refer to the [pcb-ordering.md](pcb-ordering.md) file.
 - Arduino MEGA 2560
 - USB-A Female Surface Mount Socket
+- 5V 1A USB Port Power Supply
+- USB-A Cable
+- ESP8266 Wifi Module
+- Female to Female Jumper Wire
 - Break-away 0.1" Dual Row Male Header Pin Strip (at least 18 long)
 - Break-away 0.1" Single Row Male Header Pin Strip (at least 10 long)
+- Break-away 0.1" Single Row Dual Side Male Header Pin Strip (at least 4 long)
 - 51 x Molex Part #39000046 (Mini-Fit Female Crimp Terminal 22-28 AWG)
 - 51 x Molex Part #39000048 (Mini-Fit Male Crimp Terminal 22-28 AWG)
 - 5 x Micro Servo
