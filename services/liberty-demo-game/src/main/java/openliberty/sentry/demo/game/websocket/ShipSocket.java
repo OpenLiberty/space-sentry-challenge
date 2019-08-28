@@ -1,4 +1,17 @@
+/*******************************************************************************
+ * Copyright (c) 2019 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/
+
 package openliberty.sentry.demo.game.websocket;
+
+import java.io.IOException;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -50,9 +63,10 @@ public class ShipSocket {
 	}
 
 	@OnClose
-	public void onClose(Session session, CloseReason reason) {
+	public void onClose(Session session, CloseReason reason) throws IOException {
 		// (lifecycle) Called when the connection is closed
 		System.out.println("Websocket closed!");
+		spaceShip.disconnect();
 	}
 
 	@OnMessage
