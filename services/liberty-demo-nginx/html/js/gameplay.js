@@ -9,6 +9,7 @@ var moveTiltUp = false;
 var moveTiltDown = false;
 var gameStarted = false;
 var websocket = null;
+var gamerControl = false;
 var websocket_url = null;
 window.addEventListener('keyup', arrowUp)
 window.addEventListener('keydown', arrowDown)
@@ -39,7 +40,10 @@ function loop(direction) {
 }
 
 function move(direction) {
- moveShip(direction);
+ console.log(gamerControl);
+ if (gamerControl){
+  moveShip(direction);
+ }
 }
 
 function moveShip(direction) {
@@ -166,12 +170,22 @@ function stopGameFail() {
 // Keyboard action
 function arrowDown(e) {
   e.preventDefault();
+  console.log(e.which);
   if (e.which == 32) {
     const key = document.querySelector(`.fire-key[data-key="${e.which}"]`);
     key.classList.add('press');
-  } else {
-    const key = document.querySelector(`.arrow-key[data-key="${e.which}"]`);
-    key.classList.add('press');
+  } else if (e.which == 37 || e.which == 65){
+      const key = document.querySelector(`.arrow-key[data-key="37"]`);
+      key.classList.add('press');
+  } else if (e.which == 39 || e.which == 68){
+      const key = document.querySelector(`.arrow-key[data-key="39"]`);
+      key.classList.add('press');
+  } else if (e.which == 38 || e.which == 87){
+      const key = document.querySelector(`.arrow-key[data-key="38"]`);
+      key.classList.add('press');
+  } else if (e.which == 40 || e.which == 83){
+      const key = document.querySelector(`.arrow-key[data-key="40"]`);
+      key.classList.add('press');
   }
   if (e.which == 37) {
     //console.log("Keyboard - Moving left!!");
@@ -197,11 +211,11 @@ function arrowDown(e) {
     startMoving("rightFast");
     //console.log("Keyboard - Moving right!!");
     movePanRight = true;
-  } else if (e.which == 83) {
+  } else if (e.which == 87) {
     startMoving("upFast");
     //console.log("Keyboard - Moving up!!");
     moveTiltUp = true;
-  } else if (e.which == 87) {
+  } else if (e.which == 83) {
     //console.log("Keyboard - Moving down!!");
     startMoving("downFast");
     moveTiltDown = true;
@@ -223,9 +237,18 @@ function arrowUp(e) {
       toggleBeamOn();
       beamToggle = false;
     }*/
-  } else {
-    const key = document.querySelector(`.arrow-key[data-key="${e.which}"]`);
-    key.classList.remove('press');
+  } else if (e.which == 37 || e.which == 65){
+      const key = document.querySelector(`.arrow-key[data-key="37"]`);
+      key.classList.remove('press');
+  } else if (e.which == 39 || e.which == 68){
+      const key = document.querySelector(`.arrow-key[data-key="39"]`);
+      key.classList.remove('press');
+  } else if (e.which == 38 || e.which == 87){
+      const key = document.querySelector(`.arrow-key[data-key="38"]`);
+      key.classList.remove('press');
+  } else if (e.which == 40 || e.which == 83){
+      const key = document.querySelector(`.arrow-key[data-key="40"]`);
+      key.classList.remove('press');
   }
   console.log("MoveRight=" + movePanRight + " MoveLeft=" + movePanLeft + " MoveUp=" + moveTiltUp + " MoveDown=" + moveTiltDown);
   if (e.which == 37 || e.which == 39) {
@@ -327,7 +350,10 @@ function pageRedirect() {
 
 function fireLaser() {
   console.log("FIRE!");
+ if (gamerControl){
   sendSocket("fireLaser");
+ }
+  
 }
 
 /**********************************************************
@@ -403,6 +429,7 @@ printToTerminal();
 
 function printToTerminal() {
   $("#gameShow").hide();
+  gamerControl = false;
   // Start WebSocket
   init('localhost:9081/liberty-demo-game/shipsocket');
   gameStarted = true;
@@ -424,6 +451,7 @@ function printToTerminal() {
 function showGameBoard() {
   $("#terminalShow").hide();
   $("#gameShow").show();
+  gamerControl = true;
 }
 
 /***********************************************************
