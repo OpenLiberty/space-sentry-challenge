@@ -14,3 +14,5 @@
 - Install Python3 and the libary included inside switch.py.
 - Run startup.sh as the start up script.
 - Set up start up script: https://www.wikihow.com/Execute-a-Script-at-Startup-on-the-Raspberry-Pi
+
+- You may want to set a higher priority of the space-sentry wifi internet on pi, so that pi can connect to it first when other wifi exist
