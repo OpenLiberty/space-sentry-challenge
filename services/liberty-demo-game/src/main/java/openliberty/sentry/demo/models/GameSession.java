@@ -54,7 +54,7 @@ public class GameSession implements Runnable{
         t.start();
     }
     
-    public synchronized void deactivateTarets() throws Exception {
+    public synchronized void deactivateTargets() throws Exception {
     	System.out.println("Stop game cycle");
     	if (targetsActivated)
     		targets.stopGameCycle();

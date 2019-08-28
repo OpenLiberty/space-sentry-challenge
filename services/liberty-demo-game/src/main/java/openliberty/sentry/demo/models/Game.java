@@ -43,7 +43,7 @@ public class Game {
 	}
 
 	public void stopCurrentSession() throws Exception {
-		session.deactivateTarets();
+		session.deactivateTargets();
 		/*
 		if (session.isRankedGame) {
 			GameStat stat = new GameStat(session.getPID(), session.getSessionScore());

@@ -1,5 +1,7 @@
 package openliberty.sentry.demo.game.websocket;
 
+import java.io.IOException;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.websocket.CloseReason;
@@ -50,9 +52,10 @@ public class ShipSocket {
 	}
 
 	@OnClose
-	public void onClose(Session session, CloseReason reason) {
+	public void onClose(Session session, CloseReason reason) throws IOException {
 		// (lifecycle) Called when the connection is closed
 		System.out.println("Websocket closed!");
+		spaceShip.disconnect();
 	}
 
 	@OnMessage
