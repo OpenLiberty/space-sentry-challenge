@@ -18,6 +18,11 @@ var x;
 var finalScore = document.getElementById('finalScore');
 var endMusic = $('#audio-end')[0];
 var isRankedGame = false;
+
+history.pushState(null, null, location.href);
+    window.onpopstate = function () {
+        history.go(1);
+    };
 /*
 for (x in leaders) {
   document.getElementById('board').innerHTML +=

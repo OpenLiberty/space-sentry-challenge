@@ -12,6 +12,12 @@ var websocket = null;
 var websocket_url = null;
 window.addEventListener('keyup', arrowUp)
 window.addEventListener('keydown', arrowDown)
+
+history.pushState(null, null, location.href);
+    window.onpopstate = function () {
+        history.go(1);
+    };
+
 var direction,
     movingTimeout = -1,
     FPS = 25;
@@ -52,6 +58,18 @@ function moveShip(direction) {
   } else if (direction == "down") {
     console.log("Moving Down...");
     cmd = "VD";
+  } else if (direction == "leftFast") {
+    console.log("Moving Left Fast...");
+    cmd = "H2L";
+  } else if (direction == "rightFast") {
+    console.log("Moving Right Fast...");
+    cmd = "H2R";
+  } else if (direction == "upFast") {
+    console.log("Moving Up Fast...");
+    cmd = "V2U";
+  } else if (direction == "downFast") {
+    console.log("Moving Down Fast...");
+    cmd = "V2D";
   }else {
     // Do nothing
   }
@@ -157,24 +175,36 @@ function arrowDown(e) {
   }
   if (e.which == 37) {
     //console.log("Keyboard - Moving left!!");
-    console.log("move left")
     startMoving("left");
     movePanLeft = true;
   } else if (e.which == 39) {
-    console.log("move right")
     startMoving("right");
     //console.log("Keyboard - Moving right!!");
     movePanRight = true;
   } else if (e.which == 38) {
-    console.log("move up")
     startMoving("up");
     //console.log("Keyboard - Moving up!!");
 	  moveTiltUp = true;
   } else if (e.which == 40) {
     //console.log("Keyboard - Moving down!!");
-    console.log("move down")
     startMoving("down");
 	  moveTiltDown = true;
+  } else if (e.which == 65) {
+    //console.log("Keyboard - Moving left!!");
+    startMoving("leftFast");
+    movePanLeft = true;
+  } else if (e.which == 68) {
+    startMoving("rightFast");
+    //console.log("Keyboard - Moving right!!");
+    movePanRight = true;
+  } else if (e.which == 83) {
+    startMoving("upFast");
+    //console.log("Keyboard - Moving up!!");
+    moveTiltUp = true;
+  } else if (e.which == 87) {
+    //console.log("Keyboard - Moving down!!");
+    startMoving("downFast");
+    moveTiltDown = true;
   }
 }
 

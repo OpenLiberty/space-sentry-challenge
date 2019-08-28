@@ -201,3 +201,9 @@ function cleanupSocket(){
      sendSocket("resetShip");
      websocket.close();
 }
+
+
+history.pushState(null, null, location.href);
+    window.onpopstate = function () {
+        history.go(1);
+};
