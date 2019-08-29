@@ -1,4 +1,4 @@
--Dtargets.ip=192.168.0.103
+-Dtargets.ip=192.168.0.109
 -Dtargets.port=5045
--Dship.ip=192.168.0.106
+-Dship.ip=192.168.0.111
 -Dship.port=5045
