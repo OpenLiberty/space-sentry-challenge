@@ -154,8 +154,10 @@ public class AdminResource {
         TargetArray targets = TargetArray.getInstance();
         Ship spaceShip = Ship.getInstance();
         try {
-            targets.disconnect();
-            spaceShip.disconnect();
+        	if (targets != null)
+        		targets.disconnect();
+        	if (spaceShip != null)
+        		spaceShip.disconnect();
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

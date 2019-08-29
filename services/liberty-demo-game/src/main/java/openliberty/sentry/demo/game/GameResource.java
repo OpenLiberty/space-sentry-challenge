@@ -64,7 +64,7 @@ public class GameResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response newGame(@PathParam("playerid")String playerId){
         // tag::method-contents[]
-    	 JsonObjectBuilder builder = Json.createObjectBuilder();
+    	JsonObjectBuilder builder = Json.createObjectBuilder();
  		Counter laserFiredByUserCounter = registry.counter(laserFiredByUserMetadata);
  		int currCount = (int) laserFiredByUserCounter.getCount();
      	 try {
