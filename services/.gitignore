@@ -10,7 +10,6 @@ liberty-demo-game/target/
 README.html
 .DS_Store
 
-!liberty-demo-admin/target/*.war
-!liberty-demo-webapp/target/*.war
-!liberty-demo-leaderboard/target/*.war
-!liberty-demo-game/target/*.war
+!liberty-demo-admin/target/liberty-demo-admin-1.0-SNAPSHOT.war
+!liberty-demo-leaderboard/target/liberty-demo-leaderboard-1.0-SNAPSHOT.war
+!liberty-demo-game/target/liberty-demo-game-1.0-SNAPSHOT.war
