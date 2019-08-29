@@ -63,8 +63,10 @@ def main():
                     pass
                 break
             try:
-                url = urlopen('http://localhost:9082/health')
-                data = json.loads(url.read().decode('utf-8'))
+                #url = urlopen('http://localhost:9082/health')
+                #data = json.loads(url.read().decode('utf-8'))
+                with open('sample.json') as f:
+                    data = json.load(f)
                 image = Image.new("RGB", (LCD.width, LCD.height), "BLACK")
                 draw = ImageDraw.Draw(image)
                 while i<len(data.get('checks')):
@@ -76,10 +78,11 @@ def main():
                         break
                 LCD.LCD_ShowImage(image,0,0)
                 LCD_Config.Driver_Delay_ms(1000)
-                if location<128:
+                if location<128+25:
                     i=0
                 location = 12
             except:
+                pprint(data)
                 image = Image.new("RGB", (LCD.width, LCD.height), "BLACK")
                 draw = ImageDraw.Draw(image)
                 noUrl(draw)
@@ -168,7 +171,7 @@ def main():
                     plt.rcParams['savefig.facecolor']='black'
                     plt.figure(facecolor='black')
                     plt.title("CPU Load Percentage", fontsize=20,color='white')
-                    plt.ylim([0,1])
+                    plt.ylim([0,4])
                     plt.grid(1,which='major', axis='both', color='gray', linestyle='-', linewidth=2)
                     #y = [0,1,2,3,4,5]
                     #plt.yticks(y)
