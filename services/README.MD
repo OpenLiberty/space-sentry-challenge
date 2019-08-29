@@ -35,14 +35,23 @@ docker network create -d bridge --subnet 172.25.0.0/16 demo_net --attachable
 ./start.sh
 ```
 
-2. Go to the following URL to access the game.
+2. Go to the following URL to access the game. Use Firefox for best formatting.
 ```
-http://localhost:9048
+http://localhost:9084
 ```
 
 3. Stop the Game
 ```
 ./stop.sh
+```
+
+## Reconnecting hardware
+After the hardwares being reconnected during demo, it is advised to redeploy admin and game serveices to avoid uncleaned Socket connections. Use the follow command to redeploy these two services.
+```
+./undeploy_admin.sh
+./undeploy_game.sh
+./deploy_admin.sh
+./deploy_game.sh
 ```
 
 ## Uninstallation
