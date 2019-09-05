@@ -1,11 +1,14 @@
 import LCD_1in44
 import LCD_Config
+import pygame
 
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
 from PIL import ImageColor
-from urllib.request import urlopen
+
+
+import urllib
 import json
 from pprint import pprint
 from gpiozero import Button
@@ -62,32 +65,13 @@ def main():
                 while key2.is_pressed:
                     pass
                 break
-            try:
-                #url = urlopen('http://localhost:9082/health')
-                #data = json.loads(url.read().decode('utf-8'))
-                with open('sample.json') as f:
-                    data = json.load(f)
-                image = Image.new("RGB", (LCD.width, LCD.height), "BLACK")
-                draw = ImageDraw.Draw(image)
-                while i<len(data.get('checks')):
-                    draw.text((4, location), data.get('checks')[i].get('name'), fill = "WHITE", font=font)
-                    ifRunningDot(draw,data.get('checks')[i].get('state'),location)
-                    i += 1
-                    location += 25
-                    if location>128:
-                        break
-                LCD.LCD_ShowImage(image,0,0)
-                LCD_Config.Driver_Delay_ms(1000)
-                if location<128+25:
-                    i=0
-                location = 12
-            except:
-                pprint(data)
-                image = Image.new("RGB", (LCD.width, LCD.height), "BLACK")
-                draw = ImageDraw.Draw(image)
-                noUrl(draw)
-                LCD.LCD_ShowImage(image,0,0)
-                LCD_Config.Driver_Delay_ms(1000)
+            displayAnim(LCD)
+        while True:
+            if key2.is_pressed:
+                while key2.is_pressed:
+                    pass
+                break
+            displayHealth(LCD, location, i)
             
         while True:
             if key2.is_pressed:
@@ -95,110 +79,165 @@ def main():
                     pass
                 break
             while (not key2.is_pressed):
-                try:
-                #metrics = urlopen('http://localhost:9080/metrics')
-                    i = 0
-                    while i<9:
-                        array[i]=array[i+1]
-                        i += 1
-                    os.system("./metrics.sh")
-                    with open('metrics.json') as f:
-                        plotdata = json.load(f)
-                    pprint(plotdata)
-                    memoryuse=plotdata.get('base').get('memory.usedHeap')
-                    print(memoryuse)
-                    array[9]= memoryuse
-                    maxCommited = plotdata.get('base').get('memory.committedHeap')
-                    print(maxCommited)
-                    #plotdata = metrics.read()
-                    #print(type(plotdata))
-                    if key1.is_pressed:
-                        while key1.is_pressed:
-                            pass
-                        break     
-                    LCD_Config.Driver_Delay_ms(1000)
-                    plt.rc_context({'axes.edgecolor':'white', 'xtick.color':'white', 'ytick.color':'white', 'figure.facecolor':'black'})
-                    plt.rcParams['axes.facecolor']='black'
-                    plt.rcParams['savefig.facecolor']='black'
-                    plt.figure(facecolor='black')
-                    plt.title("Memory Used Heap", fontsize=20,color='white')
-                    plt.ylim([0,maxCommited])
-                    plt.grid(1,which='major', axis='both', color='gray', linestyle='-', linewidth=2)
-                    #y = [0,1,2,3,4,5]
-                    #plt.yticks(y)
-                    #yticks = np.arange(0,5,0.5)
-                    #plt.yticks(range(0,5,1))
-                    plt.plot(array, linewidth = 6)
-                    #plt.show()
-                    plt.savefig("memoryuse.png")
-                    plt.close()
-                    image = Image.new("RGB", (LCD.width, LCD.height), "BLACK")
-                    draw = ImageDraw.Draw(image)
-                    image = Image.open('memoryuse.png')
-                    resized_image = image.resize((128,128), Image.ANTIALIAS)
-                    resized_image.save('resized.png')
-                    LCD.LCD_ShowImage(resized_image,0,0)
-                except:
-                    image = Image.new("RGB", (LCD.width, LCD.height), "BLACK")
-                    draw = ImageDraw.Draw(image)
-                    noUrl(draw)
-                    LCD.LCD_ShowImage(image,0,0)
-                    LCD_Config.Driver_Delay_ms(1000)
+               if key1.is_pressed:
+	               while key1.is_pressed:
+	                   pass
+	               break
+               try:
+	               os.system("./metrics.sh")
+	               with open('metrics.json') as f:
+		            	plotdata = json.load(f)            	
+	               maxCommited = plotdata.get('base').get('memory.committedHeap')
+	               displayMetrics(LCD, location, i, array, 'memory.usedHeap', maxCommited)
+               except:
+					   image = Image.new("RGB", (LCD.width, LCD.height), "BLACK")
+					   draw = ImageDraw.Draw(image)
+					   noUrl(draw)
+					   LCD.LCD_ShowImage(image,0,0)
+					   LCD_Config.Driver_Delay_ms(1000)		            	
                 
             while (not key2.is_pressed):
-                try:
-                #metrics = urlopen('http://localhost:9080/metrics')
-                    i = 0
-                    while i<9:
-                        array2[i]=array2[i+1]
-                        i += 1
-                    os.system("./metrics.sh")
-                    with open('metrics.json') as f:
-                        plotdata = json.load(f)
-                    pprint(plotdata)
-                    cpuload=plotdata.get('base').get('cpu.systemLoadAverage')
-                    print(cpuload)
-                    array2[9]= cpuload
-                    #plotdata = metrics.read()
-                    #print(type(plotdata))
-                    if key1.is_pressed:
-                        while key1.is_pressed:
-                            pass
-                        break
-                    LCD_Config.Driver_Delay_ms(1000)
-                    plt.rc_context({'axes.edgecolor':'white', 'xtick.color':'white', 'ytick.color':'white', 'figure.facecolor':'black'})
-                    plt.rcParams['axes.facecolor']='black'
-                    plt.rcParams['savefig.facecolor']='black'
-                    plt.figure(facecolor='black')
-                    plt.title("CPU Load Percentage", fontsize=20,color='white')
-                    plt.ylim([0,4])
-                    plt.grid(1,which='major', axis='both', color='gray', linestyle='-', linewidth=2)
-                    #y = [0,1,2,3,4,5]
-                    #plt.yticks(y)
-                    #yticks = np.arange(0,5,0.5)
-                    #plt.yticks(range(0,5,1))
-                    plt.plot(array2, linewidth = 6, color='orange')
-                    #plt.show()
-                    plt.savefig("cpuload.png")
-                    plt.close()
-                    image = Image.new("RGB", (LCD.width, LCD.height), "BLACK")
-                    draw = ImageDraw.Draw(image)
-                    image = Image.open('cpuload.png')
-                    resized_image = image.resize((128,128), Image.ANTIALIAS)
-                    resized_image.save('cpuresized.png')
-                    LCD.LCD_ShowImage(resized_image,0,0)
-                except:
-                    image = Image.new("RGB", (LCD.width, LCD.height), "BLACK")
-                    draw = ImageDraw.Draw(image)
-                    noUrl(draw)
-                    LCD.LCD_ShowImage(image,0,0)
-                    LCD_Config.Driver_Delay_ms(1000)
+                if key1.is_pressed:
+	               while key1.is_pressed:
+	                   pass
+	               break
+                displayMetrics(LCD, location, i, array2, 'cpu.systemLoadAverage', 4)
           
             #LCD_Config.Driver_Delay_ms(10000)
+
+def displayMetrics(LCD, location, i, array, metricsName, lim):
+	 try:
+	 #metrics = urlopen('http://localhost:9080/metrics')
+	     i = 0
+	     while i<9:
+	         array[i]=array[i+1]
+	         i += 1
+	     os.system("./metrics.sh")
+	     with open('metrics.json') as f:
+	         plotdata = json.load(f)
+	     pprint(plotdata)
+	     metricsData=plotdata.get('base').get(metricsName)
+	     print(metricsData)
+	     array[9]= metricsData
+	     #plotdata = metrics.read()
+	     #print(type(plotdata))
+	     LCD_Config.Driver_Delay_ms(1000)
+	     plt.rc_context({'axes.edgecolor':'white', 'xtick.color':'white', 'ytick.color':'white', 'figure.facecolor':'black'})
+	     plt.rcParams['axes.facecolor']='black'
+	     plt.rcParams['savefig.facecolor']='black'
+	     plt.figure(facecolor='black')
+	     plt.title(metricsName, fontsize=20,color='white')
+	     plt.ylim([0,lim])
+	     plt.grid(1,which='major', axis='both', color='gray', linestyle='-', linewidth=2)
+	     #y = [0,1,2,3,4,5]
+	     #plt.yticks(y)
+	     #yticks = np.arange(0,5,0.5)
+	     #plt.yticks(range(0,5,1))
+	     plt.plot(array, linewidth = 6)
+	     #plt.show()
+	     plt.savefig("temp.png")
+	     plt.close()
+	     image = Image.new("RGB", (LCD.width, LCD.height), "BLACK")
+	     draw = ImageDraw.Draw(image)
+	     image = Image.open('temp.png')
+	     resized_image = image.resize((128,128), Image.ANTIALIAS)
+	     resized_image.save('resized.png')
+	     LCD.LCD_ShowImage(resized_image,0,0)
+	 except:
+	     image = Image.new("RGB", (LCD.width, LCD.height), "BLACK")
+	     draw = ImageDraw.Draw(image)
+	     noUrl(draw)
+	     LCD.LCD_ShowImage(image,0,0)
+	     LCD_Config.Driver_Delay_ms(1000)	
+
+
+def displayHealth(LCD, location, i):
+   try:
+       #url = urlopen('http://localhost:9082/health')
+       #data = json.loads(url.read().decode('utf-8'))
+       with open('sample.json') as f:
+           data = json.load(f)
+       image = Image.new("RGB", (LCD.width, LCD.height), "BLACK")
+       draw = ImageDraw.Draw(image)
+       while i<len(data.get('checks')):
+           draw.text((4, location), data.get('checks')[i].get('name'), fill = "WHITE", font=font)
+           ifRunningDot(draw,data.get('checks')[i].get('state'),location)
+           i += 1
+           location += 25
+           if location>128:
+               break
+       LCD.LCD_ShowImage(image,0,0)
+       LCD_Config.Driver_Delay_ms(1000)
+       if location<128+25:
+           i=0
+       location = 12
+   except:
+       pprint(data)
+       image = Image.new("RGB", (LCD.width, LCD.height), "BLACK")
+       draw = ImageDraw.Draw(image)
+       noUrl(draw)
+       LCD.LCD_ShowImage(image,0,0)
+       LCD_Config.Driver_Delay_ms(1000)
+
+
+def displayAnim(LCD):
+    LCD = LCD_1in44.LCD()
     
+    print ("**********Init LCD**********")
+    Lcd_ScanDir = LCD_1in44.SCAN_DIR_DFT  #SCAN_DIR_DFT = D2U_L2R
+    LCD.LCD_Init(Lcd_ScanDir)
+
+    image = Image.new("RGB", (LCD.width, LCD.height), "WHITE")
+    draw = ImageDraw.Draw(image)
+    
+    image = Image.open('open.jpeg')
+    LCD.LCD_ShowImage(image,0,0)
+    #os.system("cvlc speech.wav")
+    pygame.mixer.init()
+    pygame.mixer.music.load("full.wav")
+    pygame.mixer.music.play()
+    #while pygame.mixer.music.get_busy() == True:
+    #    continue
+    LCD_Config.Driver_Delay_ms(900)
+    
+    print ("***draw text")
+    font = ImageFont.truetype("ASMAN.TTF", 85)
+    image = Image.new("RGB", (LCD.width, LCD.height), "BLACK")
+    draw = ImageDraw.Draw(image)
+    draw.text((33, 22), 'O', fill = "WHITE", font=font)
+    LCD.LCD_ShowImage(image,0,0)
+    LCD_Config.Driver_Delay_ms(200) 
+    image = Image.new("RGB", (LCD.width, LCD.height), "BLACK")
+    draw = ImageDraw.Draw(image)
+    draw.text((33, 22), 'P', fill = "WHITE", font=font)
+    LCD.LCD_ShowImage(image,0,0)
+    LCD_Config.Driver_Delay_ms(200)
+    image = Image.new("RGB", (LCD.width, LCD.height), "BLACK")
+    draw = ImageDraw.Draw(image)
+    draw.text((33, 22), 'E', fill = "WHITE", font=font)
+    LCD.LCD_ShowImage(image,0,0)
+    LCD_Config.Driver_Delay_ms(200)
+    image = Image.new("RGB", (LCD.width, LCD.height), "BLACK")
+    draw = ImageDraw.Draw(image)
+    draw.text((33, 22), 'N', fill = "WHITE", font=font)
+    LCD.LCD_ShowImage(image,0,0)
+    LCD_Config.Driver_Delay_ms(200)
+    
+    font = ImageFont.truetype("ASMAN.TTF", 30)
+    image = Image.new("RGB", (LCD.width, LCD.height), "BLACK")
+    draw = ImageDraw.Draw(image)
+    draw.text((12, 50), 'LIBERTY', fill = "WHITE", font=font)
+    LCD.LCD_ShowImage(image,0,0)
+    LCD_Config.Driver_Delay_ms(800)
+    
+    image = Image.new("RGB", (LCD.width, LCD.height), "BLACK")
+    draw = ImageDraw.Draw(image)
+    LCD.LCD_ShowImage(image,0,0)
+
 if __name__ == '__main__':
     main()
 
 #except:
 #   print("except")
 #   GPIO.cleanup()
+
