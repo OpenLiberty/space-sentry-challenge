@@ -29,7 +29,7 @@ When you receive the package containing Space Sentry Challenge parcel, make sure
 4. MicroUSB cable for charging PS4 controller
 5. Power outlet
 
-##Assembly
+## Assembly
 
 ### Targets Assembly
 
