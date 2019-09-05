@@ -1,4 +1,4 @@
-# Space Sentry Challenge Assmebly Instruction 
+# Space Sentry Challenge Assembly Instruction 
 
 ## Unboxing
 When you receive the package containing Space Sentry Challenge parcel, make sure all the items required to run the demo are included after unboxing. The complete item list can be found below:
