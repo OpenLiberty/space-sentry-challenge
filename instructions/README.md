@@ -74,7 +74,7 @@ When you receive the package containing Space Sentry Challenge parcel, make sure
 6. Launch antimicro and load *spacesentry* profile with a connected PS4 controller.
 7. Open Firefox in private mode and visit http://localhost:9084. You should see the home page of Space Sentry Challenge
 
-## Operating Space Sentrty Challenge
+## Operating Space Sentry Challenge
 
 1. Settings page can show the connection status of target and spaceship hardware. It's always good to visit this page first to make sure both the targets and the ship are connected with an IP address assigned.
 2. New game is the main game mode of the space sentry challenge. The score of the game session will be stored for leaderboard.
