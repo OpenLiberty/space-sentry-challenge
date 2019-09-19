@@ -19,15 +19,15 @@ Servo servoV;  // create servo object to control a servo
 Servo servoH;  // create servo object to control a servo
 
 // Initial Servo positions
-int initVerPos = 50; 
-int initHorPos = 80; 
+int initVerPos = 86; //86
+int initHorPos = 110; //110
 
 // Initialize Servo positions
 int currVerPos = initVerPos;
 int currHorPos = initHorPos;
 
 // Servo Min and Max positions
-int servoVMin = 20; 
+int servoVMin = 60; 
 int servoVMax = 95; 
 int servoHMin = 10;
 int servoHMax = 170; 
@@ -58,7 +58,7 @@ const int LEDPIN6 = 8;
 byte LEDpins[] = {10,12,9,13,11,8.};
 
 // LASER
-const int LASERPIN = 7;
+const int LASERPIN = 38;
 
 /*********************************
     GAME CONFIGURATION
@@ -96,6 +96,7 @@ void setup() {
   // Set initial start positions for servos
   servoV.write(initVerPos);
   servoH.write(initHorPos);   
+  //sweepTiltShip();
   delay(1000);
   servoV.detach(); // Detach servos in order to prevent jitter
   servoH.detach();
