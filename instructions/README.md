@@ -89,12 +89,16 @@ The PS4 Controller is the default and the recommended way of playing Space Sentr
 
 <img src="assets/images/antimicro.png" width="800">
 
+_Figure: Antimicro PS4 controller keymappings_
+
 The ship's movement can be controlled by two thumbsticks of the PS4 controller. The left stick allows the swift and fast movement of the spaceship, or the normal control. The right stick allows the much slower but more precised movement of the spaceship, or the precision control. 
 
 The laser can be fire by pressing the right trigger button. The laser will be ignited for 5 seconds and will need the player to press the trigger button again to turn it on.
 
 The overall control scheme of the PS4 controller is the following:
 <img src="assets/images/ps4-dualshock4.jpg" width="800">
+
+_Figure: PS4 controller control scheme_
 
 ### Keyboard Controller
 
