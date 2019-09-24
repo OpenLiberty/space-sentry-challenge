@@ -86,6 +86,7 @@ When you receive the package containing Space Sentry Challenge parcel, make sure
 ### PS4 Controller
 
 The PS4 Controller is the default and the recommended way of playing Space Sentry Challenge. It is enabled when a PS4 controller is connected by Bluetooth or by USB with *antimicro* program launched. Make sure to launch *antimicro* before running the game. You should see the following window when antimicro is launched with PS4 controller and control profile detected.
+
 <img src="assets/images/antimicro.png" width="800">
 
 The ship's movement can be controlled by two thumbsticks of the PS4 controller. The left stick allows the swift and fast movement of the spaceship, or the normal control. The right stick allows the much slower but more precised movement of the spaceship, or the precision control. 
