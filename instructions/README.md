@@ -81,7 +81,23 @@ When you receive the package containing Space Sentry Challenge parcel, make sure
 3. Practice game on the othe hand doesn't store the score for leaderboard purpose.
 4. The mini display on raspberry pi have three modes: 1. animation, 2. mpHealth, 3. mpMetrics. To switch mode, long press button #2. 
 5. In mpMetrics mode, metrics can be switched by long pressing button #1. At the moment, we are only tracking cpu and memory usage provided by Open Liberty mpMetrics.  
+## Control Scheme
 
+### PS4 Controller
+
+The PS4 Controller is the default and the recommended way of playing Space Sentry Challenge. It is enabled when a PS4 controller is connected by Bluetooth or by USB with *antimicro* program launched. Make sure to launch *antimicro* before running the game. You should see the following window when antimicro is launched with PS4 controller and control profile detected.
+<img src="assets/images/antimicro.png" width="800">
+
+The ship's movement can be controlled by two thumbsticks of the PS4 controller. The left stick allows the swift and fast movement of the spaceship, or the normal control. The right stick allows the much slower but more precised movement of the spaceship, or the precision control. 
+
+The laser can be fire by pressing the right trigger button. The laser will be ignited for 5 seconds and will need the player to press the trigger button again to turn it on.
+
+The overall control scheme of the PS4 controller is the following:
+<img src="assets/images/ps4-dualshock4.jpg" width="800">
+
+### Keyboard Controller
+
+To play it with keyboard, use *W* *A* *S* *D* keys for normal control of the spaceship. Use arrow keys for precision control of the spaceship. Space bar is for firing the laser turret.
 
 ## Troubleshooting
 
