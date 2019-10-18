@@ -20,7 +20,7 @@ Ensure you have ordered the necessary PCB, instructions can be found in the [pcb
 7. The pinouts can be connected to the Arduino as shown:
 
 | ESP8266 | Arduino |
-| - | :-: |
+| :-: | :-: |
 | RX | RX (Pin 19) |
 | VCC | 5V |
 | GPIO 0 | N/A |
