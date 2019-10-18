@@ -2,10 +2,10 @@ Required Tools
 ---
 - Soldering Iron (Generic)
 - Solder Wire (Lead Free)
-- Wire Cutters (Capable of stripping 22-28 AWG wiring)
+- Wire Strippers (Capable of stripping 22-28 AWG wiring)
 - Open Barrel Terminal Crimper (Capable of crimping 22-28 AWG wiring)
 - Wire Cutters (Generic)
-- Silicone 24AWG Flex Wire (multiple colours)
+- Spools of 24AWG Flex Wire (multiple colours)
 - Hook-up Wire 24AWG (multiple colours)
 - Heat Shrink Tubing (multiple sizes)
 - Desolder Pump
