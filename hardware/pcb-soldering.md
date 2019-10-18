@@ -19,8 +19,6 @@ Ensure you have ordered the necessary PCB, instructions can be found in the [pcb
 
 7. The pinouts can be connected to the Arduino as shown:
 
-<center>
-
 | ESP8266 | Arduino |
 | - | :-: |
 | RX | RX (Pin 19) |
@@ -32,12 +30,10 @@ Ensure you have ordered the necessary PCB, instructions can be found in the [pcb
 | TX | TX (Pin 18) |
 | GND | GND |
 
-</center>
-
-8. Connect all of the header pins onto the Arduino, and fit the PCB on top to ensure that the header pins will be soldered on straight. Note that the only header pins that needs to be soldered on are the ones with traces that lead to actual components, as well as a single ground pin. However, to ensure board stability, all pins can be soldered on.
+1. Connect all of the header pins onto the Arduino, and fit the PCB on top to ensure that the header pins will be soldered on straight. Note that the only header pins that needs to be soldered on are the ones with traces that lead to actual components, as well as a single ground pin. However, to ensure board stability, all pins can be soldered on.
    
-9.  Finally, mount and solder the [Molex Parts #39289168 and #39289108](parts-list.md) onto the board, in section X3 and X4.
+2.  Finally, mount and solder the [Molex Parts #39289168 and #39289108](parts-list.md) onto the board, in section X3 and X4.
    
-10.  At this point, it is recommended to use the [Multimeter](parts-list.md) to ensure connectivity between two ends of a circuit component, to verify that everything was soldered correctly.
+3.   At this point, it is recommended to use the [Multimeter](parts-list.md) to ensure connectivity between two ends of a circuit component, to verify that everything was soldered correctly.
 
 For instructions on creating the wires to connect the servos and photoresistors to the shield, and therefore the Arduino, refer to the [crimping-wires.md](crimping-wires.md) file.
