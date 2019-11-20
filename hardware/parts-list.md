@@ -9,8 +9,6 @@ Required Tools
 - Hook-up Wire 24AWG (multiple colours)
 - Heat Shrink Tubing (multiple sizes)
 - Desolder Pump
-
-Optional (but highly recommended):
 - Thin Tipped Tweezers (makes the soldering of the surface mount resistors much easier)
 - Helping Hands (makes the soldering of wires much easier)
 - Fine Conical Soldering Iron Tip (makes the soldering of small components easier)
