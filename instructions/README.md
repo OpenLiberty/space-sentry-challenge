@@ -65,7 +65,7 @@ When you receive the package containing Space Sentry Challenge parcel, make sure
 
 ## Setup
 
-1. Plug TP Link Router to a power source, Internet connection is optional.
+1. Plug TP Link Router to a power source, Internet connection is optional. Place the TP Link Router closer to the two devices.
 2. Plug Raspberry Pi to a power source. It should play an Open Liberty animation in loop after a couple of minutes. 
 2. Plug the Gigabyte box to a power source with monitor, keyboard and mouse connected.
 3. Connect the USB hub of the targets to a power source. When powered on and connected to the wifi, target #1 should be in standing position while rest of the targets are in resting position.
@@ -76,7 +76,8 @@ When you receive the package containing Space Sentry Challenge parcel, make sure
 
 ## Operating Space Sentry Challenge
 
-1. Settings page can show the connection status of target and spaceship hardware. It's always good to visit this page first to make sure both the targets and the ship are connected with an IP address assigned.
+1. Settings page can show the connection status of target and spaceship hardware and testing capabilities. It's always good to visit this page first to make sure both the targets and the ship are connected with an IP address assigned.
+- Test both the devices to ensure all the connections are successfully established.
 2. New game is the main game mode of the space sentry challenge. The score of the game session will be stored for leaderboard.
 3. Practice game on the othe hand doesn't store the score for leaderboard purpose.
 4. The mini display on raspberry pi have three modes: 1. animation, 2. mpHealth, 3. mpMetrics. To switch mode, long press button #2. 
