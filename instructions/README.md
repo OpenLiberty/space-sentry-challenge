@@ -57,7 +57,7 @@ When you receive the package containing Space Sentry Challenge parcel, make sure
 2. Plug Raspberry Pi to a power source. It should play an Open Liberty animation in loop after a couple of minutes. (Optional)
 2. Plug the mini pc to a power source with monitor, keyboard and mouse connected.
 3. Connect the USB hub of the targets to a power source. When powered on and connected to the wifi, target #1 should be in standing position while rest of the targets are in resting position.
-4. Connect the USB hub of the spaceship to a power source. When powered on and connected to the wifi, red LEDs to be in the cycle mode.
+4. Connect the USB hub of the spaceship to a power source. When powered on and connected to the wifi, blue LEDs to be in the cycle mode.
 5. Log in to mini pc, execute the start.sh script on Desktop to start all the services of the space sentry game.
 6. Launch antimicro and load *spacesentry* profile with a connected PS4 controller. If the PS4 controller is connected to the mini PC with a USB cable, load *spacesentry-wired* profile.
 7. Open Firefox in private mode and visit http://localhost:9084. You should see the home page of Space Sentry Challenge
