@@ -47,31 +47,19 @@ When you receive the package containing Space Sentry Challenge parcel, make sure
 
 ### Spaceship Assembly
 
-1. Connect the servo wires
-<img src="assets/images/servo-connect.jpg" width="300">
-2. Attach the spaceship to the Lego pan & tilt system as illustrated
-<img src="assets/images/IMG_1957.jpg" width="500">
-3. Attach the leftside of the spaceship (Servo side)
-<img src="assets/images/leftside-1.jpg" width="500">
-<img src="assets/images/leftside-2.jpg" width="500">
-<img src="assets/images/leftside-3.jpg" width="500">
+1. Connect the tri-color servo wires. Make sure the the colors are matched when connecting.
 
-4. Attach the rightside of the spaceship 
-<img src="assets/images/rightside-1.jpg" width="500">
-<img src="assets/images/rightside-2.jpg" width="500">
-<img src="assets/images/rightside-3.jpg" width="500">
-
-5. Connect both USB cables to a USB hub. 
+2. Connect both USB cables to a USB hub. 
 
 ## Setup
 
 1. Plug TP Link Router to a power source, Internet connection is optional. Place the TP Link Router closer to the two devices.
-2. Plug Raspberry Pi to a power source. It should play an Open Liberty animation in loop after a couple of minutes. 
-2. Plug the Gigabyte box to a power source with monitor, keyboard and mouse connected.
+2. Plug Raspberry Pi to a power source. It should play an Open Liberty animation in loop after a couple of minutes. (Optional)
+2. Plug the mini pc to a power source with monitor, keyboard and mouse connected.
 3. Connect the USB hub of the targets to a power source. When powered on and connected to the wifi, target #1 should be in standing position while rest of the targets are in resting position.
-4. Connect the USB hub of the spaceshipt to a power source. When powered on and connected to the wifi, red LEDs to be in the cycle mode.
-5. Log in to Gigabyte box, execute the start.sh script on Desktop to start all the services of the space sentry game.
-6. Launch antimicro and load *spacesentry* profile with a connected PS4 controller.
+4. Connect the USB hub of the spaceship to a power source. When powered on and connected to the wifi, red LEDs to be in the cycle mode.
+5. Log in to mini pc, execute the start.sh script on Desktop to start all the services of the space sentry game.
+6. Launch antimicro and load *spacesentry* profile with a connected PS4 controller. If the PS4 controller is connected to the mini PC with a USB cable, load *spacesentry-wired* profile.
 7. Open Firefox in private mode and visit http://localhost:9084. You should see the home page of Space Sentry Challenge
 
 ## Operating Space Sentry Challenge
